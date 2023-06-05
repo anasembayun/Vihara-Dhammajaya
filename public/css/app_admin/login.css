@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap');
+
+@font-face {
+    font-family: Merriweather-regular;
+    src: url('public/fonts/Merriweather-Regular.ttf');
+}
+
+@font-face {
+    font-family: Merriweather-light;
+    src: url('public/fonts/Merriweather-Light.ttf');
+}
+
+@font-face {
+    font-family: MerriweatherSans-regular;
+    src: url('public/fonts/MerriweatherSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: MerriweatherSans-light;
+    src: url('public/fonts/MerriweatherSans-Light.ttf');
+}
+
+body {
+    background-color: #F0F0F0;
+}
+
+.login-card {
+    background-color: #100701;
+    border-radius: 1rem;
+}
+
+.sub-judul{
+    font-family:MerriweatherSans-Regular ;
+    color:#F8C400;
+    opacity: 0.95;
+    font-size: 14px;
+}
+
+.biasa-putih{
+    font-family: Merriweather-Regular;
+    color:white;
+    font-size:14px;
+}
+.btn{
+    font-size: 16px;
+}
+.btn-1{
+    background-color: #D09222;
+    opacity: 0.95;
+    color:white;
+    width:140px;
+    font-weight: 600;
+}
+
+.btn-1:hover{
+    background-color: white;
+    color:#D09222 ;
+    width:140px;
+}
+
+.btn-1:focus{
+    background-color: white;
+    color:#D09222 ;
+    width:140px;
+    box-shadow: none;
+}
+
+.form-control:focus{
+    box-shadow: none;
+}

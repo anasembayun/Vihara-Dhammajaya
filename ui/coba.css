@@ -1,0 +1,26 @@
+.carousel-control-next, .carousel-control-prev {
+    filter: invert(100%);
+    width: 40%;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    width: 5rem;
+    height: 8rem;
+}
+.carousel-item img{
+    width: 75%;
+    height: 450px;
+    display: block;
+    margin: auto;
+}
+.isibox{
+    color: white;
+}
+.navbar-dark .navbar-nav .nav-link{
+    color: white;
+    
+}
+.navbar-dark .navbar-nav .nav-link:hover{
+    color:chocolate;
+    
+}

@@ -1,0 +1,458 @@
+.grid-container{
+    display:grid;
+    grid-template-areas:
+    'search search search search logo logo logo logo login login login login'
+    'nav nav nav nav nav nav nav nav nav nav nav nav'
+	'news news news news news news news news news news news news'
+    'footer footer footer footer footer footer footer footer footer footer footer footer';
+    width: 100%;
+}
+
+.search{
+    grid-area: search;
+    padding-left: 100px;
+    background-color: black;
+    padding-right: 100px;
+    padding-top: 42px;
+}
+.logo{
+    grid-area: logo;
+    padding-left: 50px;
+    background-color: black;
+    padding-right: 50px;
+    padding-top: 45px;
+}
+.login{
+    grid-area: login;
+    padding-right: 100px;
+    background-color: black;
+    padding-top: 42px;
+    text-align: right;
+}
+.nav{
+    grid-area: nav;
+    background-color: black;
+    padding-bottom: 20px;
+}
+.nav li{
+    display: inline-block;
+    padding : 0 22px;
+    
+}
+a{
+    text-decoration: none;
+    font-size: 15px;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 2px;
+    padding: 5px 15px;
+}
+
+.nav-container li a:hover{
+    color: #ff7648;
+}
+.news{
+    grid-area: news;
+	padding: 90px 90px 100px 90px;
+
+    
+}
+.gambar-news{
+	width: 100%;
+}
+.isinews p{
+    width: 40%;
+    text-align: left;
+}
+.line{
+	grid-area: line;
+	background-color: gray;
+    width: 95%;
+    height:2px;
+	align-items: center;
+	text-align: center;
+	display: block;
+	margin: auto;
+}
+.opsi{
+	grid-area: opsi;
+    padding-bottom: 20px;
+}
+.opsi li{
+    display: inline-block;
+    padding : 0 22px;
+	color: black;
+    
+}
+.opsi li a{
+	text-decoration: none;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 2px;
+    padding: 5px 15px;
+	color: black;
+	margin-left: 25px;
+}
+a{
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 2px;
+    padding: 5px 15px;
+}
+
+.opsi li a:hover{
+    color: #ff7648;
+}
+footer{
+    grid-area: footer;
+	bottom: 0;
+}
+
+@media (max-height:800px){
+	footer { position: static; }
+	header { padding-top:40px; }
+}
+.donate{
+	grid-area: donate;
+	bottom: 0;
+}
+
+.footer-distributed{
+	background-color: #000000;
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+	padding: 50px 50px 60px 50px;
+	margin-top: 80px;
+}
+
+.donate-distributed{
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+	padding: 50px 50px 60px 50px;
+	margin-top: 80px;
+}
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+.donate-distributed .donate-left,
+.donate-distributed .donate-right{
+	display: inline-block;
+	vertical-align: top;
+}
+.news .admin,
+.news .calendar{
+    display: inline-block;
+    vertical-align: top;
+}
+/* Footer left */
+
+.footer-distributed .footer-left{
+	width: 30%;
+}
+.donate-distributed .donate-left{
+	width: 45%;
+}
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Cookie', cursive;
+	margin: 0;
+}
+
+/* The company logo */
+
+.footer-distributed .footer-left img{
+	width: 70%;
+}
+.donate-distributed .donate-left img{
+	width: 70%;
+	margin-left: 90px;
+}
+.footer-distributed h3 span{
+	color:  #e0ac1c;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+	width: 30%;
+}
+.donate-distributed .donate-right{
+	width: 45%;
+}
+.footer-distributed .footer-center h2{
+    color: white;
+}
+
+.footer-distributed .footer-center h1{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+	vertical-align: middle;
+	margin:0;
+}
+.donate-distributed .donate-right p{
+	display: inline-block;
+	color: gray;
+	vertical-align: middle;
+	margin:0;
+}
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  #e0ac1c;
+	text-decoration: none;
+}
+
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+	width: 30%;
+    margin-left: 60px;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+    border-radius: 10px;
+
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #D09222;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+.share{
+	grid-area: share;
+}
+.share .share-icons{
+	margin-top: 25px;
+    border-radius: 10px;
+
+}
+
+.share .share-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #D09222;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+/* Here is the code for Responsive Footer */
+/* You can remove below code if you don't want Footer to be responsive */
+.footer-distributed .footer-left i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-left i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-left p{
+	display: inline-block;
+	color: #ffffff;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-left p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-left p a{
+	color:  #e0ac1c;
+	text-decoration: none;;
+}
+.footer-distributed .footer-right p a:hover{
+    color: #D09222;
+}
+
+@media (max-width: 880px) {
+
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+
+}
+@media (max-width: 880px) {
+
+	.donate-distributed .donate-left,
+	.donate-distributed .donate-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.donate-distributed  .donate-right i{
+		margin-left: 0;
+	}
+
+}
+.bar{
+    background-color: #D09222;
+    width: 320px;
+    height:10px;
+    border-radius: 7px;
+}
+.donate-right li {
+    display: inline-block;
+    margin: 0;
+    text-align: left;
+    font-size: 15px;
+    font-family: 'Merriweather', sans-serif;
+    /* color: rgb(169, 169, 169); */
+    padding-top: 10px;
+}
+.donasi{
+	width: 320px;
+	background-color: #D09222;
+	height: 40px;
+	border-radius: 10px;
+	border: none;
+	vertical-align: bottom;
+}
+
+/* .donate .donate-left{
+    width: 40%;
+    float: left;
+}
+.donate-left .head-card,
+.donate-left .body-card {
+    display: inline-block;
+}
+.donate .donate-right{
+    width: 40%;
+    float: right;
+}
+@media (max-width: 880px) {
+
+	.donate .donate-left,
+	.donate .donate-right{
+		display: inline-block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+
+}
+.donate .donate-left img{
+    width: 70%;
+    margin-left: 100px;
+}
+
+ */

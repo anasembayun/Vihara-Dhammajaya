@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Vihara Dhammajaya</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="coba.css">
+
+  <!-- favico -->
+  <link rel="apple-touch-icon" sizes="180x180" href="aset/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="aset/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="aset/img/favicon-16x16.png">
+  <link rel="manifest" href="aset/img/site.webmanifest">
+  <link rel="mask-icon" href="aset/img/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+  <div class="container-fluid py-3" style="background-color: black">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 mt-1">
+          <form class="d-flex" role="search" >
+            <a href="#" style="padding-right: 10px ;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg></a>
+            <input class="form-control me-2" type="search" placeholder="Cari" aria-label="search" style="padding-left:20px;">
+            
+          </form>
+        </div>
+        <div class="col-4">
+          <img src="aset/img/logovihara.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="col-4 mt-1 text-end">
+          <a href="login.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+              class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg></a><a href="login.html" style="color:white;text-decoration:none;padding-left:10px;">Masuk</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-sm bg-black navbar-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="coba.html">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tentang Kami</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="berita.html">Info Terkini</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="absensi.html">Absensi</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Program</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="listdonasi.html">Donasi</a></li>
+              <li><a class="dropdown-item" href="#">Another link</a></li>
+              <li><a class="dropdown-item" href="#">A third link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- <div class="row d-flex justify-content-center mt-5">
+    <div class="col-lg-3">
+        
+            <div class="mb-3 mt-3" >
+                <h5>Login</h5>
+              <label for="email">Username:</label>
+              <input type="email" class="form-control" id="email" placeholder="Masukkan Username" name="email">
+            </div>
+            <div class="mb-3">
+              <label for="pwd">Password:</label>
+              <input type="password" class="form-control" id="pwd" placeholder="Masukkan password" name="pswd">
+            </div>
+            <div class="form-check mb-3">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember"> Remember me
+              </label>
+            </div>
+           
+            <a style="text-decoration:none; color:#D09222;" href="forgotpass.html">Apakah Anda Lupa Password?</a>
+            <a href="changepass.html">
+              <button type="submit" class="btn btn-primary mt-3" style="background-color:white; border-color: #D09222; color:#D09222; width: 50%;" >Change Password</button>
+            </a>
+            <a href="datajemaat.html">
+            <button type="submit" class="btn btn-primary mt-2" style="background-color:#D09222; border: #D09222; width: 50%;" >Submit</button>
+            </a>
+          </div>
+          
+    <div class="col-lg-3">
+        <img src="aset/img/qr.png" class="img-fluid">
+        <h5>Login dengan scan qr code</h5>
+
+    </div>
+</div> -->
+<div class="row d-flex justify-content-center mt-5">
+  <div class="col-lg-6 md-10 px-5">
+  <h5>Data Jemaat</h5>
+</div>
+</div>
+
+<div class="row d-flex justify-content-center mt-2" >
+    
+    <div class="col-lg-2 col-md-10 px-5" style="background-color:#D09222 ;">
+        <img src="aset/img/profil.png" class="img-fluid mt-3 mb-3" >
+        <form action="proses.php" method="POST" enctype="multipart/form-data">
+
+            <table>
+            <tr><td><input style="border-radius: 3px ;" type="file" value="upload gambar"/></td></tr>
+            <tr><td><input class="mt-2 mb-2" style="border-radius: 3px ;"type="submit" value="kirim"/></td><td></td></tr>
+            </table>
+            </form>
+  </div>
+  <div class="col-lg-4 col-md-10 px-5" style="background-color:#D09222 ; color: white;">
+    <h5 class="mt-4">Lala Lisa</h5>
+    <div class="mt-3">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+          </svg><a href="#" style="color:white ;text-decoration:none;padding-left:10px;">017322</a>
+      </div>
+    
+      <div class="mt-1">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff"
+            class="bi bi-telephone" viewBox="0 0 16 16">
+            <path
+              d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+          </svg></a><a href="#" style="color:white ;text-decoration:none;padding-left:10px;">081787899600</a>
+      </div>
+      <div class="mt-1">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff"
+            class="bi bi-envelope" viewBox="0 0 16 16">
+            <path
+              d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+          </svg></a><a href="#"
+          style="color:white ;text-decoration:none;padding-left:10px;">lalalisa@gmail.com</a>
+      </div>
+  </div>
+  </div>
+<div class="row d-flex justify-content-center mt-5">
+
+            <div class="col-lg-2 col-md-4 col-xs-4 px-4">
+                <p><b>Alamat</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 col-xs-8 px-4">
+                <a style="text-decoration: none;color: black;"href="tambahJemaat.html">: Jalan Siwalankerto 15 no.25 RT.01</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Golongan Darah</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none;color: black;"href="tambahJemaat.html">: B</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Jenis Kelamin</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none;color: black;"href="tambahJemaat.html">: Perempuan</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Tempat Tanggal Lahir</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none;color: black;"href="tambahJemaat.html">: Surabaya, 27 Juni 1997</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Bidang Usaha</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none;color: black;"href="tambahJemaat.html">: Kuliner</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Jenis Pekerjaan</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none;color: black;"href="tambahJemaat.html">: Chef</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Terakhir Kali Hadir ke Vihara</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none; color: black;"href="tambahJemaat.html">: 12 Juli 2022</a>
+            </div>
+            
+        </div>
+        <div class="row d-flex justify-content-center mt-2 mb-3">
+  
+            <div class="col-lg-2 col-md-4 px-4">
+                <p><b>Terakhir Kali Menyumbang</b></p>
+            </div>
+            <div class="col-lg-4 col-md-8 px-4">
+                <a style="text-decoration: none; color: black;"href="tambahJemaat.html">: 10 Juli 2022</a>
+            </div>
+            
+        </div>
+        
+</div>
+          
+            
+</body>
+</html>

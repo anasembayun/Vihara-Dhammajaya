@@ -1,0 +1,43 @@
+.container-fluid {
+    width: 100%;
+    padding-right: 12.5px;
+    padding-left: 12.5px;
+    margin-right: auto;
+    margin-left: auto; 
+}
+
+.full-page-wrapper {
+    min-height: 100vh;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -12.5px;
+    margin-left: -12.5px; 
+}
+
+.w-100 {
+    width: 100% !important; 
+}
+
+.col-lg-4 {
+    position: relative;
+    width: 100%;
+    padding-right: 12.5px;
+    padding-left: 12.5px;
+}
+
+.mx-auto {
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+.form-group {
+    margin-bottom: 1rem; 
+}

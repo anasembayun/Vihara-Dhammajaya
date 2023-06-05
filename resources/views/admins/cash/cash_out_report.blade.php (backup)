@@ -1,0 +1,256 @@
+@extends('templates.admin_main')
+@section('top-header')
+    <header class="top-nav w3-container w3-xlarge header-customize px-4 mt-3">
+        <p class="w3-left">Laporan Kas Keluar</p>
+        <p class="w3-right">Role
+            <span>: {{ Auth::guard('admin')->user()->role }} </span>
+        </p>
+    </header>
+@endsection
+@section('css')
+    <style>
+        .detailKas {
+            border: 1px solid #100701;
+            border-radius: 5px;
+        }
+
+        .txt-Kas {
+            color: #D09222;
+        }
+    </style>
+@endsection
+@section('content')
+    <div class="w3-main container-main" style="margin-left:250px; padding-top: 0;">
+        <!-- isi halaman -->
+        <div class="container-fluid isi px-4 mt-3">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" style="color: #000000;" href="{{ url('kas/laporan-kas-masuk') }}">Kas Masuk</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active disabled" aria-current="page" href="">Kas Keluar</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container-fluid isi px-4 mt-4 justify-content-center">
+            <div class="card mb-5">
+                <div class="card-body mt-2">
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="row border-bottom" style="width: 100%; padding-bottom:2%">
+                            {{-- Date Filter --}}
+                            <div class="col-md-2">
+                                <input type="date" name="date" id="date_awal" class="form-control form-control-md"
+                                    required>
+                            </div>
+                            -
+                            <div class="col-md-2">
+                                <input type="date" name="date" id="date_akhir" class="form-control form-control-md"
+                                    required>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary btn-md" id="filter_btn"
+                                    onclick="filterDataKasKeluar()">Filter</button>
+                                <button type="submit" class="btn btn-secondary btn-md" id="reset_btn"
+                                    onclick="resetDataKasKeluar()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid px-4 mt-4 mb-4 text-center">
+                        <div class="container-fluid detailKas px-5 pt-4 py-1">
+                            <Strong>Total Kas Keluar:</Strong>
+                            <h2 class="txt-Kas">Rp. {{ number_format($total_kas_keluar, 2, ',', '.') }}</h2>
+                        </div>
+                    </div>
+
+                    <table id="daftarKasKeluar" class="display py-3" style="width: auto; margin-top: 50px;">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:5%;">No</th>
+                                <th scope="col" style="width:15%;">Nomor Kas Keluar</th>
+                                <th scope="col" style="width:10%;">Tanggal</th>
+                                <th scope="col" style="width:15%;">Nama Admin</th>
+                                <th scope="col" style="width:25%;">Untuk Keperluan</th>
+                                <th scope="col" style="width:15%;">Nominal</th>
+                                <th scope="col" style="width:15%;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="px-3">
+                            @php
+                                $no = 0;
+                            @endphp
+                            @foreach ($data_kas_keluar as $item)
+                                <tr>
+                                    <td>{{ ++$no }}</td>
+                                    <td>{{ $item->nomor_kas_keluar }}</td>
+                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->tanggal)->format('d-m-Y') }}
+                                    </td>
+                                    <td>{{ $item->nama_admin }}</td>
+                                    <td>{{ $item->keterangan_keperluan }}</td>
+                                    <td>Rp. {{ number_format($item->nominal_pengeluaran, 2, ',', '.') }}</td>
+                                    <td class="text-center">
+                                        <button title="print" class="btn btn-outline-dark"
+                                            onclick="openPrintPage('{{ $item->nomor_kas_keluar }}')">
+                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                        </button>
+                                        <button title="detail" class="btn btn-outline-dark" type="button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalDetailDataKasKeluarModal{{ $item->id }}">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                        <button title="delete" class="btn btn-outline-dark" id="btn-6" type="button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteDataKasKeluarModal{{ $item->id }}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <!-- Modal Delete -->
+                    @foreach ($data_kas_keluar as $item)
+                        <div class="modal fade" id="deleteDataKasKeluarModal{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Data Kas Keluar
+                                            {{ $item->id }}</h5>
+                                    </div>
+                                    <form action="{{ url('kas/laporan-kas-keluar/delete/' . $item->id) }}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <p>Apakah anda yakin ingin menghapus data kas
+                                                "<b>{{ $item->nomor_kas_keluar }}</b>"?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Tidak</button>
+                                            <button type="submit" class="btn btn-primary">Ya</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <!-- Modal Detail -->
+                    @foreach ($data_kas_keluar as $item)
+                        <div class="modal fade" id="modalDetailDataKasKeluarModal{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Detail Kas
+                                            &nbsp;&nbsp;<b>{{ $item->nomor_kas_keluar }}</b></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row mt-2 mb-4">
+                                                <table>
+                                                    <tr>
+                                                        <td style="width: 20%;">Tanggal</td>
+                                                        <td style="width: 1%;">:</td>
+                                                        <td style="width: 84%; text-align: left;">{{ $item->tanggal }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama Admin</td>
+                                                        <td>:</td>
+                                                        <td>{{ $item->nama_admin }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama Penerima</td>
+                                                        <td>:</td>
+                                                        <td>{{ $item->penerima }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Untuk Keperluan</td>
+                                                        <td>:</td>
+                                                        <td>{{ $item->keterangan_keperluan }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nominal Pengeluaran</td>
+                                                        <td>:</td>
+                                                        <td>Rp.
+                                                            {{ number_format($item->nominal_pengeluaran, 2, ',', '.') }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Diberikan secara</td>
+                                                        <td>:</td>
+                                                        <td>{{ $item->diberikan_secara }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <!-- isi tiap halaman sampai sini -->
+    </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#daftarKasKeluar').DataTable({
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: {
+                    buttons: [
+                        'spacer',
+                        {
+                            extend: 'copyHtml5',
+                            className: 'btn btn-secondary btn-sm',
+                            exportOptions: {
+                                columns: [0, ':visible']
+                            }
+                        },
+                        {
+                            extend: 'spacer',
+                            style: 'bar'
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            className: 'btn btn-success btn-sm',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5]
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            className: 'btn btn-danger btn-sm',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5]
+                            }
+                        },
+                        'colvis'
+                    ]
+                }
+            });
+        });
+
+        function openPrintPage(nomor_kas_keluar) {
+            var windowOpen = window.open("{{ url('kas/struk-kas-keluar') }}/" + nomor_kas_keluar);
+            windowOpen.print();
+        };
+
+        function filterDataKasKeluar() {
+            open("{{ url('kas/laporan-kas-keluar-filter') }}/" + document.getElementById('date_awal').value + "/" +
+                document
+                .getElementById('date_akhir').value, "_self");
+        };
+
+        function resetDataKasKeluar() {
+            open("{{ url('kas/laporan-kas-keluar') }}", "_self");
+        };
+    </script>
+@endsection

@@ -1,0 +1,606 @@
+* {
+    margin: 0;
+}
+
+/* font */
+.w3-sidebar {
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+/* content element */
+.container-main {
+    padding: 2em;
+}
+
+/* sidebar in desktop size */
+#mySidebar {
+    width: 250px;
+    /* overflow: hidden; */
+}
+
+/* sidebar color */
+.w3-white,
+.w3-hover-white:hover {
+    background-color: #100701ff !important;
+    color: #d2d1d0ff !important;
+}
+
+.w3-container {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 3px ! important;
+    padding-top: 3px ! important;
+
+}
+
+/* judul page & role admin */
+.top-nav {
+    font-family: 'Merriweather Sans', sans-serif;
+    margin-top: 3% !important;
+    padding-right: 5% !important;
+}
+
+
+/* button hover */
+.w3-button:hover {
+    background-color: #d09222ff !important;
+    color: #d2d1d0ff !important;
+}
+
+/* sidebar text */
+.w3-text-grey,
+.w3-hover-text-grey:hover,
+.w3-text-gray,
+.w3-hover-text-gray:hover {
+    color: #d2d1d0ff !important;
+}
+
+/* padding for sidebar menu */
+.w3-padding-64 {
+    padding-top: 10px !important;
+}
+
+/* arrow icon accordion */
+.accordion-header {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+.accordion-button:hover {
+    background-color: #d09222ff !important;
+    color: #d2d1d0ff !important;
+}
+:focus {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+.accordion-collapse {
+    padding-right: 0px !important;
+    font-size: 14px;
+}
+.accordion-body {
+    margin-left: 20px;
+}
+
+/* accordion without arrow */
+.accordion-no-arrow:after {
+    display: none;
+}
+
+/* arrow icon */
+.arrow-miss {
+    display: none;
+}
+
+/* hr */
+.line-hr {
+    border: 1px solid rgb(208, 146, 34, 0.9);
+}
+
+/* top header */
+.header-customize {
+    padding-top: 0.5em;
+}
+
+/* header font left */
+.header-customize .w3-left {
+
+    font-weight: bolder;
+    font-size: 23px;
+}
+
+/* header font right */
+.header-customize .w3-right {
+    font-size: 16px;
+    margin-top: 2px;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+/* header span color */
+.header-customize .w3-right span {
+    color: #d09222ff;
+}
+
+.dropdown-items {
+    padding-right: 0px !important;
+    font-size: 14px;
+}
+
+/* form */
+#large {
+    border: 1px solid rgb(16, 7, 1, 0.5);
+    margin-top: -5px;
+    font-size: 14px;
+}
+
+#large:focus {
+    box-shadow: none;
+    border: 1px solid #C66B1B;
+}
+
+#ordinary {
+    border: 1px solid rgb(16, 7, 1, 0.5);
+    margin-top: -5px;
+    height: 33px;
+    font-family: Merryweather-light;
+    font-size: 14px;
+}
+
+#ordinary:focus {
+    box-shadow: none;
+    border: 1px solid #C66B1B;
+}
+
+#mono-large {
+    border: 1px solid rgb(16, 7, 1, 0.5);
+    margin-top: -5px;
+    font-size: 14px;
+}
+
+#mono-large:focus {
+    box-shadow: none;
+    border: 1px solid #C66B1B;
+}
+
+#mini {
+    border: 1px solid rgb(16, 7, 1, 0.5);
+    margin-top: -5px;
+    font-size: 14px;
+    height: 33px;
+    width: 30px;
+    font-size: 14px;
+}
+
+#mini:focus {
+    box-shadow: none;
+}
+
+#border-only {
+    border: 1px solid #100701;
+    background-color: white;
+}
+
+#mini-2 {
+    border: 1px solid #100701;
+    height: 28px;
+    width: 28px;
+}
+
+.form-label {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 540;
+
+}
+
+.mono {
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+}
+
+.isi-form {
+    font-family: 'Merriweather', serif;
+    color: #414141;
+    font-size: 16px;
+}
+
+
+/* font */
+
+p {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+}
+
+.sub-judul {
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #C66B1B;
+    opacity: 0.9;
+    margin-top: 7%;
+}
+
+.btn-1 {
+    background-color: #D09222;
+    opacity: 0.95;
+    color: white;
+    width: 150px;
+    border: 1px solid transparent;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    font-size: 16px;
+}
+
+.btn-1:hover {
+    background-color: white;
+    color: #D09222;
+    width: 150px;
+}
+
+.btn-1:focus {
+    background-color: white;
+    color: #D09222;
+    width: 150px;
+    box-shadow: none;
+}
+
+.btn-2 {
+    background-color: #D09222;
+    opacity: 0.95;
+    color: white;
+    border: 1px solid transparent;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    font-size: 16px;
+}
+
+.btn-2:hover {
+    background-color: white;
+    color: #D09222;
+
+}
+
+.btn-2:focus {
+    background-color: white;
+    color: #D09222;
+
+    box-shadow: none;
+}
+
+.btn-3 {
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    width: 150px;
+}
+
+.btn-3:hover {
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    border: 1px solid black;
+}
+
+.btn-3:focus {
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    border: 1px solid black;
+    box-shadow: none;
+}
+
+/* button jadwalkan kegiatan */
+.btn-4 {
+    background-color: #D09222;
+    opacity: 0.95;
+    color: white;
+    width: 200px;
+    border: 1px solid transparent;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    font-size: 16px;
+}
+
+.btn-4:hover {
+    background-color: white;
+    color: #D09222;
+    width: 200px;
+}
+
+.btn-4:focus {
+    background-color: white;
+    color: #D09222;
+    width: 200px;
+    box-shadow: none;
+}
+
+.btn-5 {
+    color: white;
+    width: 120px;
+    font-size: 15px;
+    font-family: 'Merriweather Sans', sans-serif;
+    border: 1px solid transparent;
+}
+
+.btn-5:hover {
+    color: white;
+    font-size: 15px;
+    font-family: 'Merriweather Sans', sans-serif;
+    border: 1px solid transparent;
+}
+
+.btn-5:focus {
+    color: white;
+    font-size: 15px;
+    font-family: 'Merriweather Sans', sans-serif;
+    border: 1px solid transparent;
+    box-shadow: none;
+}
+
+.btn-6{
+    border: 1px solid rgb(16, 7, 1, 0.5);
+    background-color: white;
+    color: #A19595;
+    font-size: 14px;
+    font-family: 'Merriweather', serif;
+  /* margin-left: 8px; */
+  height:35px;
+ 
+}
+
+.btn-6:hover,btn-6:focus{
+    background-color: white;
+    border: 1px solid #D09222;
+    color: #D09222;
+    box-shadow: none;
+}
+/* tabel */
+
+thead {
+    background-color: #100701;
+    color: white;
+    font-family: 'Merriweather Sans', sans-serif;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+tbody {
+    font-size: 16px;
+    font-family: 'Merriweather', serif;
+}
+
+/* iuran */
+.detailTransaksi {
+    border: 1px solid #100701;
+    border-radius: 5px;
+}
+
+/* kas */
+.detailKas {
+    border: 1px solid #100701;
+    border-radius: 5px;
+}
+
+.txt-Kas {
+    color: #D09222;
+}
+
+/* pagination */
+.pagination {
+    font-family: 'Merriweather', serif;
+    font-size: 14px;
+
+}
+
+/* .pagination ul{
+    display:flex;
+} */
+
+.pagination ul li {
+    list-style: none;
+    text-align: center;
+    margin-right: 2px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.pagination ul li.numb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    /* border: 1px solid red; */
+    /* padding:10px 0; */
+}
+
+.pagination ul li.btn {
+    margin-top: -3px;
+    height: 25px;
+}
+
+
+.pagination ul li.numb:hover,
+.pagination ul li.numb:focus,
+.pagination ul li.active {
+    background-color: #E57616;
+    color: white;
+}
+
+.pagination ul li.btn:hover{
+    color:#E57616;
+}
+
+
+
+/* media */
+/* extra small : <576px
+small : >=576px
+medium : >=768 px
+large : >=992px
+extra large : >=1200 px */
+
+@media(min-width:992px) {
+    .sub-judul {
+        margin-left: 7.5%;
+    }
+
+    .header-customize .w3-left {
+        margin-left: 3%;
+    }
+
+    #mono-large {
+        width: 97%;
+    }
+
+    .iuran {
+        margin-left: -7.5%;
+    }
+
+    #mini {
+        margin-top: 12%;
+    }
+
+    .form-check-label {
+        margin-top: 14%;
+    }
+
+    .tableDetail{
+        width:87%;
+    }
+
+    /* .sub-judul-2{
+        margin-left:19%;
+    } */
+
+    .atasTable{
+        margin-left: -1%;
+    }
+
+    .atasTable .col-3,.atasTable .col-6{
+        margin-right: -3%;
+    }
+
+    .btn-filter{
+        margin-top: -5px;
+    }
+
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+
+    .sidebar.active {
+        margin-left: 0;
+    }
+
+    .sub-judul {
+        margin-left: 0%;
+    }
+
+    .mono {
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+
+    /* header customize for mobile */
+    .header-customize {
+        margin-top: 5em;
+    }
+
+    /* To customize sidebar in mobile ver */
+    #mySidebar {
+        width: 300px;
+    }
+
+    .btn-filter{
+        margin-top: 5%;
+    }
+
+    .row-2{
+        width:85%;
+    }
+
+}
+
+@media(min-width:913px) and (max-width:1025px) {
+    .checkbox .form-check {
+        margin-top: 5%;
+    }
+}
+
+@media(min-width:819.6px) and (max-width:912.5px) {
+    .checkbox .form-check {
+        margin-top: 12%;
+    }
+}
+
+@media(min-width:768px) and (max-width:819.5px) {
+    .checkbox .form-check {
+        margin-top: 15%;
+    }
+}
+
+@media(max-width:767px) {
+    .tambahAdmin {
+        width: 90%;
+    }
+
+
+    .idSolo {
+        margin-left: 0%;
+    }
+}
+
+@media(min-width:767px) {
+    .idSolo {
+        margin-left: 7.5%;
+    }
+}
+
+@media(max-width:539px) {
+    .mainContainer {
+        width: 90%;
+    }
+}
+
+@media(min-width:540px) {
+    .mainContainer {
+        width: 65%;
+    }
+}
+
+@media(min-width:767px) and (max-width:991px) {
+    .idSolo {
+        margin-left: 0%;
+    }
+
+}
+
+
+@media(min-width:360px) and (max-width:959px) {
+    .top-nav {
+        padding-top: 7% !important;
+    }
+}
+
+@media(max-width:359px) {
+    .top-nav {
+        padding-top: 40% !important;
+    }
+}
+
+
+
+/* Color set and list */
+
+/* Black side bar: 100701ff */
+/* orange sidebar: d09222ff */
+/* white sidebar : d2d1d0ff */
+
+/* Header gold    : e1ba73ff */
+/* Button gold    : d09222ff */
