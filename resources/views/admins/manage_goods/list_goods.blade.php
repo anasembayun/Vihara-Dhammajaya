@@ -29,10 +29,11 @@
                     <thead>
                         <tr>
                             <th scope="col" class="align-middle" style="width:5%;">No</th>
-                            <th scope="col" class="align-middle" style="width:15%;"> Barang</th>
+                            <th scope="col" class="align-middle" style="width:30%;"> Barang</th>
                             <th scope="col" class="align-middle" style="width:20%;"> Harga Jual</th>
                             <th scope="col" class="align-middle" style="width:15%;"> Keterangan</th>
-                            <th scope="col" style="width:10%;">Aksi</th>
+                            <th scope="col" class="align-middle" style="width:15%;"> Status</th>
+                            <th scope="col" style="width:15%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,15 @@
                                             <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #7C6A0A;">{{ $item->keterangan }}</button>
                                         @else
                                             <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #C70039;">{{ $item->keterangan }}</button>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-container">
+                                        @if ($item->status_keaktifan == "Aktif")
+                                            <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #7C6A0A;">{{ $item->status_keaktifan }}</button>
+                                        @else
+                                            <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #C70039;">{{ $item->status_keaktifan }}</button>
                                         @endif
                                     </div>
                                 </td>

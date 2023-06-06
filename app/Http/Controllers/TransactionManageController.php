@@ -38,7 +38,7 @@ class TransactionManageController extends Controller
     // TRANSAKSI PAKET DONASI
     public function viewAddGoodsDonationTransaction()
     {
-        $goods = Goods::where('keterangan', 'Tersedia')->get();
+        $goods = Goods::where('keterangan', 'Tersedia')->where('status_keaktifan','Aktif')->get();
         $jamaats = UserJamaat::all();
         $donasis = Donasi::where('status_keaktifan','Aktif')->get();
         return view('admins.manage_transactions.add_transaction', compact('goods', 'jamaats', 'donasis'));

@@ -57,6 +57,7 @@ class GoodsManageController extends Controller
             'kode_barang' => Request()->kode_barang,
             'harga_jual' => Request()->harga_jual,
             'keterangan' => 'Tersedia',
+            'status_keaktifan' => 'Aktif',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ];
@@ -74,6 +75,7 @@ class GoodsManageController extends Controller
                 'nama_barang' => 'required',
                 'kode_barang' => 'required|unique:data_barang,kode_barang',
                 'keterangan' => 'required',
+                'status_keaktifan' => 'required',
                 'harga_jual' => 'required',
             ], [
                 'kode_barang.unique' => 'Kode Barang sudah dipakai!'
@@ -84,6 +86,7 @@ class GoodsManageController extends Controller
                 'kode_barang' => Request()->kode_barang,
                 'keterangan' => Request()->keterangan,
                 'harga_jual' => Request()->harga_jual,
+                'status_keaktifan' => Request()->status_keaktifan,
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
         }
@@ -93,12 +96,14 @@ class GoodsManageController extends Controller
                 'nama_barang' => 'required',
                 'keterangan' => 'required',
                 'harga_jual' => 'required',
+                'status_keaktifan' => 'required',
             ]);
     
             $data = [
                 'nama_barang' => Request()->nama_barang,
                 'keterangan' => Request()->keterangan,
                 'harga_jual' => Request()->harga_jual,
+                'status_keaktifan' => Request()->status_keaktifan,
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
         }

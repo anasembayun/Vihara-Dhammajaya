@@ -49,10 +49,30 @@
 
                             <div class="col-md-8">
                                 <div class="d-flex" style="width: 100%;">
-                                    <div class="col-md-3 text-start">
-                                        <h4>Filter Periode</h4>
+                                    {{-- Dropdown --}}
+                                    <div class="col-md-3 dropdown" style="margin-right: 0px;">
+                                        <button
+                                            class="dt-button buttons-copy buttons-html5 btn btn-secondary btn-sm dropdown-toggle"
+                                            type="button" id="KategoriButton" data-bs-toggle="dropdown" aria-expanded="false"
+                                            style="width: 200px;">
+                                            Kategori Keperluan
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a id="yayasanID" class="dropdown-item" href="#"
+                                                    onclick="dropDownYayasan()">Dana dari Yayasan</a></li>
+                                            <li><a id="paketID" class="dropdown-item" href="#"
+                                                    onclick="dropDownUmum()">Dana Paramita Umum</a></li>
+                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                                    onclick="dropDownRemaja()">Dana Paramita Remaja</a></li>
+                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                                    onclick="dropDownAnak()">Dana Paramita Anak-Anak</a></li>
+                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                                    onclick="dropDownMudaMudi()">Dana Paramita Muda Mudi</a></li>
+                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                                    onclick="dropDownTotal()">Semua Dana</a></li>
+                                        </ul>
                                     </div>
-                                    <div class="col-md-4 align-self-center">
+                                    <div class="col-md-4 align-self-center" style="margin-left: 6rem">
                                         <input name="date_awal" type="date" value="{{ $date_awal }}"
                                             class="form-control form-control-md date-awal">
                                     </div>
@@ -80,7 +100,12 @@
                     <div class="container-fluid px-4 mt-3 mb-4 text-center">
                         <div class="container-fluid detailKas px-5 pt-4 py-1">
                             <Strong>Total Kas Masuk:</Strong>
-                            <h2 class="txt-Kas">Rp. {{ number_format($total_kas_masuk, 2, ',', '.') }}</h2>
+                            <h2 class="txt-Kas" id="total-kas-masuk">Rp. {{ number_format($total_kas_masuk, 2, ',', '.') }}</h2>
+                            <h2 class="txt-Kas" id="total-yayasan">Rp. {{ number_format($total_yayasan, 2, ',', '.') }}</h2>
+                            <h2 class="txt-Kas" id="total-umum">Rp. {{ number_format($total_umum, 2, ',', '.') }}</h2>
+                            <h2 class="txt-Kas" id="total-remaja">Rp. {{ number_format($total_remaja, 2, ',', '.') }}</h2>
+                            <h2 class="txt-Kas" id="total-anak">Rp. {{ number_format($total_anak, 2, ',', '.') }}</h2>
+                            <h2 class="txt-Kas" id="total-muda-mudi">Rp. {{ number_format($total_muda_mudi, 2, ',', '.') }}</h2>
                         </div>
                     </div>
 
@@ -170,6 +195,11 @@
         // $("#daftarKasMasuk").createElement("<tr><td></td><td></td><td>"+sum+"</td></tr>");
 
         $(document).ready(function() {
+            $('#total-muda-mudi').hide();
+            $('#total-yayasan').hide();
+            $('#total-umum').hide();
+            $('#total-anak').hide();
+            $('#total-remaja').hide();
             $('#daftarKasMasuk').DataTable({
                 responsive: true,
                 dom: 'lBfrtip',
@@ -291,7 +321,6 @@
                     // }
                 }
             });
-
         });
 
         $(document).on('click', '#exportpdf', function(e) {
@@ -324,5 +353,90 @@
         function resetDataKasMasuk() {
             open("{{ url('kas/laporan-kas-masuk') }}", "_self");
         };
+
+        function dropDownYayasan() {
+            var table = $('#daftarKasMasuk').DataTable();
+            table.columns(4)
+                .search('Dana dari Yayasan')
+                .draw();
+            $('#KategoriButton').html("Dana dari Yayasan");
+            $('#total-kas-masuk').hide();
+            $('#total-umum').hide();
+            $('#total-remaja').hide();
+            $('#total-anak').hide();
+            $('#total-muda-mudi').hide();
+            $('#total-yayasan').show();
+        }
+
+        function dropDownUmum() {
+            var table = $('#daftarKasMasuk').DataTable();
+            table.columns(4)
+                .search('Dana Paramita Umum')
+                .draw();
+            $('#KategoriButton').html("Dana Paramita Umum");
+            $('#total-kas-masuk').hide();
+            $('#total-yayasan').hide();
+            $('#total-remaja').hide();
+            $('#total-anak').hide();
+            $('#total-muda-mudi').hide();
+            $('#total-umum').show();
+        }
+
+        function dropDownRemaja() {
+            var table = $('#daftarKasMasuk').DataTable();
+            table.columns(4)
+                .search('Dana Paramita Remaja')
+                .draw();
+            $('#KategoriButton').html("Dana Paramita Remaja");
+            $('#total-kas-masuk').hide();
+            $('#total-yayasan').hide();
+            $('#total-umum').hide();
+            $('#total-anak').hide();
+            $('#total-muda-mudi').hide();
+            $('#total-remaja').show();
+        }
+
+        function dropDownAnak() {
+            var table = $('#daftarKasMasuk').DataTable();
+            table.columns(4)
+                .search('Dana Paramita Anak-Anak')
+                .draw();
+            $('#KategoriButton').html("Dana Paramita Anak-Anak");
+            $('#total-kas-masuk').hide();
+            $('#total-yayasan').hide();
+            $('#total-umum').hide();
+            $('#total-remaja').hide();
+            $('#total-muda-mudi').hide();
+            $('#total-anak').show();
+        }
+
+        function dropDownMudaMudi() {
+            var table = $('#daftarKasMasuk').DataTable();
+            table.columns(4)
+                .search('Dana Paramita Muda Mudi')
+                .draw();
+            $('#KategoriButton').html("Dana Paramita Muda Mudi");
+            $('#total-kas-masuk').hide();
+            $('#total-yayasan').hide();
+            $('#total-umum').hide();
+            $('#total-anak').hide();
+            $('#total-remaja').hide();
+            $('#total-muda-mudi').show();
+        }
+
+        function dropDownTotal() {
+            var table = $('#daftarKasMasuk').DataTable();
+            table.columns(4)
+                .search("Dana dari Yayasan|Dana Paramita Umum|Dana Paramita Remaja|Dana Paramita Anak-Anak|Dana Paramita Muda Mudi", true, false)
+                .draw();
+            $('#KategoriButton').html("Semua Dana");
+            $('#total-muda-mudi').hide();
+            $('#total-yayasan').hide();
+            $('#total-umum').hide();
+            $('#total-anak').hide();
+            $('#total-remaja').hide();
+            $('#total-kas-masuk').show();
+        }
+
     </script>
 @endsection

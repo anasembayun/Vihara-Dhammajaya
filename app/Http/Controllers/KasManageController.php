@@ -79,12 +79,23 @@ class KasManageController extends Controller
                                 ->whereDate('tanggal', '<=', $date_akhir)
                                 ->orderBy('tanggal', 'desc')
                                 ->get();
+        
+        $total_yayasan = KasMasuk::where('keterangan_keperluan', '=', 'Dana dari Yayasan')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_umum = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Umum')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_remaja = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Remaja')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_anak = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Anak-Anak')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_muda_mudi = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Muda Mudi')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
 
         $data = [
             'data_kas_masuk' => $data_kas_masuk,
             'total_kas_masuk' => $data_kas_masuk->sum('nominal_pemasukan'),
             'date_awal' => $date_awal,
-            'date_akhir' => $date_akhir
+            'date_akhir' => $date_akhir,
+            'total_yayasan' => $total_yayasan,
+            'total_umum' => $total_umum,
+            'total_remaja' => $total_remaja,
+            'total_anak' => $total_anak,
+            'total_muda_mudi' => $total_muda_mudi
         ];
         return view('admins.cash.cash_in_report', $data);
     }
@@ -97,11 +108,22 @@ class KasManageController extends Controller
                                 ->orderBy('tanggal', 'desc')
                                 ->get();
 
+        $total_yayasan = KasMasuk::where('keterangan_keperluan', '=', 'Dana dari Yayasan')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_umum = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Umum')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_remaja = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Remaja')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_anak = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Anak-Anak')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_muda_mudi = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Muda Mudi')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+
         $data = [
             'data_kas_masuk' => $data_kas_masuk,
             'total_kas_masuk' => $data_kas_masuk->sum('nominal_pemasukan'),
             'date_awal' => $date_awal,
-            'date_akhir' => $date_akhir
+            'date_akhir' => $date_akhir,
+            'total_yayasan' => $total_yayasan,
+            'total_umum' => $total_umum,
+            'total_remaja' => $total_remaja,
+            'total_anak' => $total_anak,
+            'total_muda_mudi' => $total_muda_mudi
         ];
 
         return view('admins.cash.cash_in_report', $data);

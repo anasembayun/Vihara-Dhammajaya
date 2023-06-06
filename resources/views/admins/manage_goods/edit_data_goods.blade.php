@@ -105,6 +105,23 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="col-12 mb-2">
+                                        <label for="exampleInputEmail1" class="form-label">Status Keaktifan<span
+                                                class="text-danger">*</span></label>
+                                        <select name="status_keaktifan" class="form-select" id="ordinary"
+                                            aria-label="Example select with button addon" required>
+                                            @php
+                                                $status = ['Aktif', 'Tidak Aktif'];
+                                            @endphp
+                                            @foreach ($status as $st)
+                                                @if ($st != $goods->status_keaktifan)
+                                                    <option value="{{ $st }}">{{ $st }}</option>
+                                                @else
+                                                    <option selected value="{{ $st }}">{{ $st }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer text-muted text-center">

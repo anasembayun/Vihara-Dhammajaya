@@ -189,7 +189,6 @@ class JamaatManageController extends Controller
             'no_handphone_kerabat' => Request()->no_handphone_kerabat,
             'alamat_kerabat' => Request()->alamat_kerabat,
             'password' => bcrypt(Request()->password),
-            'status_register' => 0,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ];
@@ -582,7 +581,6 @@ class JamaatManageController extends Controller
             'no_handphone_kerabat' => Request()->no_handphone_kerabat,
             'alamat_kerabat' => Request()->alamat_kerabat,
             'password' => bcrypt(Request()->password),
-            'status_register' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ];
