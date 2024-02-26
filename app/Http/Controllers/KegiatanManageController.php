@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use Milon\Barcode\DNS1D;
 use App\Models\UserJamaat;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\absensiJamaat;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +78,10 @@ class KegiatanManageController extends Controller
             ];
         }
 
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit Kegiatan"." ".$data['nama'];
+        UserHistory::create($newActivity);
+
         $this->Kegiatan->DBeditJadwalKegiatan($id, $data);
         return redirect()->route('edit_data_kegiatan', $id)->with('success','Edit data kegiatan '.Request()->nama.' berhasil!');
     }
@@ -88,8 +93,14 @@ class KegiatanManageController extends Controller
             unlink(public_path('images/app_admin/kelola_kegiatan/foto_kegiatan').'/'.$kegiatan->foto_kegiatan);
         }
 
+        $nama_keg = Kegiatan::where('id', $id)->first()->nama;
         $this->AbsensiJemaat->deleteDataAbsensiJamaatByIdKegiatan($id);
         $this->Kegiatan->deleteDataKegiatan($id);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus Kegiatan"." ".$nama_keg;
+        UserHistory::create($newActivity);
+
         return redirect()->route('addJadwal_kegiatan');
     }
 
@@ -136,6 +147,11 @@ class KegiatanManageController extends Controller
         ];
 
         $this->Kegiatan->DBaddJadwalKegiatan($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah Kegiatan"." ".$data['nama'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('addJadwal_kegiatan');
 
         // $data_kegiatan = new JadwalKegiatan;
@@ -196,6 +212,10 @@ class KegiatanManageController extends Controller
         else if ($kegiatan->status == 2) { $kegiatan->status = 0; }
 
         $kegiatan->save();
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Update Status Kegiatan"." ".$kegiatan->nama;
+        UserHistory::create($newActivity);
 
         return redirect()->route('absen_per_kegiatan', $id);
     }

@@ -65,8 +65,8 @@
                                     id="ordinary" aria-describedby="emailHelp" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="exampleInputEmail1" class="form-label">No HP (1) <span
-                                        class="text-danger">*</span></label>
+                                <label for="exampleInputEmail1" class="form-label">No HP (1)<span
+                                    class="text-danger">*</span></label>
                                 <input name="no_handphone_1" value="{{ old('no_handphone_1') }}" type="number"
                                     class="form-control" id="ordinary" pattern="[0-9]+" title="Input harus angka 0-9!"
                                     aria-describedby="emailHelp" required>
@@ -101,30 +101,26 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="exampleInputEmail1" class="form-label">Jenis Kelamin <span
-                                        class="text-danger">*</span></label>
+                                <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
                                 <select name="jenis_kelamin" class="form-select" id="ordinary"
-                                    aria-label="Example select with button addon" required>
+                                    aria-label="Example select with button addon">
                                     <option selected value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label for="exampleFormControlTextarea1" class="form-label">Alamat <span
-                                        class="text-danger">*</span></label>
-                                <textarea name="alamat" value="{{ old('alamat') }}" class="form-control" id="ordinary" rows="3" required></textarea>
+                                <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
+                                <textarea name="alamat" value="{{ old('alamat') }}" class="form-control" id="ordinary" rows="3"></textarea>
                             </div>
                             <div class="col-md-4">
-                                <label for="exampleFormControlTextarea1" class="form-label">Kelurahan/Kecamatan <span
-                                        class="text-danger">*</span></label>
+                                <label for="exampleFormControlTextarea1" class="form-label">Kelurahan/Kecamatan</label>
                                 <input name="kelurahan_kecamatan" value="{{ old('kelurahan_kecamatan') }}" type="text"
-                                    class="form-control" id="ordinary" aria-describedby="emailHelp" required>
+                                    class="form-control" id="ordinary" aria-describedby="emailHelp">
                             </div>
                             <div class="col-md-4">
-                                <label for="exampleFormControlTextarea1" class="form-label">Kabupaten/Kota <span
-                                        class="text-danger">*</span></label>
+                                <label for="exampleFormControlTextarea1" class="form-label">Kabupaten/Kota</label>
                                 <input name="kabupaten_kota" value="{{ old('kabupaten_kota') }}" type="text"
-                                    class="form-control" id="ordinary" aria-describedby="emailHelp" required>
+                                    class="form-control" id="ordinary" aria-describedby="emailHelp">
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleFormControlTextarea1" class="form-label">RT/RW </label>

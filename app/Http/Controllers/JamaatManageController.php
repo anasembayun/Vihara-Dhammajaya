@@ -12,6 +12,7 @@ use App\Models\TransaksiFoto;
 use App\Models\Transaksi;
 use App\Models\absensiJamaat;
 use App\Models\Kegiatan;
+use App\Models\UserHistory;
 use Auth;
 use PDF;
 
@@ -194,6 +195,11 @@ class JamaatManageController extends Controller
         ];
 
         $this->UserJamaat->addDataJamaat($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah umat terdaftar"." ".$data['id_code'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_jamaat')->with('success','Data Umat '.Request()->name.' berhasil ditambahkan!');
     }
 
@@ -297,6 +303,11 @@ class JamaatManageController extends Controller
         }
         
         $this->UserJamaat->editDataJamaat($id_code, $data);
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit umat"." ". $data['id_code'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('detail_data_jamaat', Request()->id_code)->with('success','Edit data Umat '.Request()->$id_code.' berhasil!');
     }
 
@@ -334,195 +345,12 @@ class JamaatManageController extends Controller
     public function deleteDataJamaat($id_code)
     {
         UserJamaat::where('id_code', $id_code)->delete();
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus data umat"." ". $id_code;
+        UserHistory::create($newActivity);
+
         return redirect()->route('daftar_jamaat');
-    }
-
-    // Tambah Data Baptisan
-    public function viewAddDataBaptisan()
-    {
-        $jamaats = UserJamaat::all();
-        return view('admins.manage_jamaat.add_data_baptisan', compact('jamaats'));
-    }
-
-    public function addDataBaptisanJamaat()
-    {
-        Request()->validate([
-            'id_jamaat' => 'required',
-            'no_sertifikat' => 'required',
-            'name' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'alamat' => 'required',
-            'kelurahan_kecamatan' => 'required',
-            'kabupaten_kota' => 'required',
-            'rt_rw' => 'required',
-            'tempat_wisuda' => 'required',
-            'tanggal_wisuda' => 'required',
-            'nama_baptis' => 'required',
-            'arti_nama_baptis' => 'required',
-            'bhikhu_pemberi_wisuda' => 'required',
-            'pandita_pemimpin_upacara' => 'required',
-        ]);
-
-        $data = [
-            'id_jamaat' => Request()->id_jamaat,
-            'no_sertifikat' => Request()->no_sertifikat,
-            'name' => Request()->name,
-            'tempat_lahir' => Request()->tempat_lahir,
-            'tanggal_lahir' => Request()->tanggal_lahir,
-            'alamat' => Request()->alamat,
-            'kelurahan_kecamatan' => Request()->kelurahan_kecamatan,
-            'kabupaten_kota' => Request()->kabupaten_kota,
-            'rt_rw' => Request()->rt_rw,
-            'tempat_wisuda' => Request()->tempat_wisuda,
-            'tanggal_wisuda' => Request()->tanggal_wisuda,
-            'nama_baptis' => Request()->nama_baptis,
-            'arti_nama_baptis' => Request()->arti_nama_baptis,
-            'bhikhu_pemberi_wisuda' => Request()->bhikhu_pemberi_wisuda,
-            'pandita_pemimpin_upacara' => Request()->pandita_pemimpin_upacara,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-
-        $this->Baptisan->addDataBaptisan($data);
-        return redirect()->route('tambah_baptisan')->with('success','Data Baptisan '.Request()->name.' berhasil ditambahkan!');
-    }
-
-    public function viewDataBaptisan()
-    {
-        $baptisans = Baptisan::all();
-        return view('admins.manage_jamaat.list_baptisan', compact('baptisans'));
-    }
-
-    public function deleteDataBaptisan($id)
-    {
-        $this->Baptisan->deleteDataBaptisan($id);
-        return redirect()->route('daftar_baptisan');
-    }
-
-    // Tambah Data Pernikahan
-    public function viewAddDataPernikahan()
-    {
-        $jamaats = UserJamaat::all();
-        return view('admins.manage_jamaat.add_data_pernikahan', compact('jamaats'));
-    }
-
-    public function viewDataPernikahan()
-    {
-        $data_pernikahan = DataPernikahan::all();
-        return view('admins.manage_jamaat.list_pernikahan', compact('data_pernikahan'));
-    }
-
-    public function addDataPernikahanJamaat()
-    {
-        Request()->validate([
-            'no_sertifikat' => 'required',
-            'tanggal_pernikahan' => 'required',
-            'tempat_pernikahan' => 'required',
-            'rt_rw' => 'required',
-            'kelurahan' => 'required',
-            'kecamatan' => 'required',
-            'kabupaten_kota' => 'required',
-            'p_nama' => 'required',
-            'p_ayah' => 'required',
-            'p_ibu' => 'required',
-            'p_tempat_lahir' => 'required',
-            'p_tanggal_lahir' => 'required',
-            'p_alamat' => 'required',
-            'p_rt_rw' => 'required',
-            'p_kelurahan' => 'required',
-            'p_kecamatan' => 'required',
-            'p_kabupaten_kota' => 'required',
-            'w_nama' => 'required',
-            'w_ayah' => 'required',
-            'w_ibu' => 'required',
-            'w_tempat_lahir' => 'required',
-            'w_tanggal_lahir' => 'required',
-            'w_alamat' => 'required',
-            'w_rt_rw' => 'required',
-            'w_kelurahan' => 'required',
-            'w_kecamatan' => 'required',
-            'w_kabupaten_kota' => 'required',
-            'pandita' => 'required',
-            'saksi_1' => 'required',
-            'saksi_2' => 'required',
-        ]);
-
-        $data = [
-            'no_sertifikat' => Request()->no_sertifikat,
-            'tanggal_pernikahan' => Request()->tanggal_pernikahan,
-            'tempat_pernikahan' => Request()->tempat_pernikahan,
-            'rt_rw' => Request()->rt_rw,
-            'kelurahan' => Request()->kelurahan,
-            'kecamatan' => Request()->kecamatan,
-            'kabupaten_kota' => Request()->kabupaten_kota,
-            'p_nama' => Request()->p_nama,
-            'p_ayah' => Request()->p_ayah,
-            'p_ibu' => Request()->p_ibu,
-            'p_tempat_lahir' => Request()->p_tempat_lahir,
-            'p_tanggal_lahir' => Request()->p_tanggal_lahir,
-            'p_alamat' => Request()->p_alamat,
-            'p_rt_rw' => Request()->p_rt_rw,
-            'p_kelurahan' => Request()->p_kelurahan,
-            'p_kecamatan' => Request()->p_kecamatan,
-            'p_kabupaten_kota' => Request()->p_kabupaten_kota,
-            'w_nama' => Request()->w_nama,
-            'w_ayah' => Request()->w_ayah,
-            'w_ibu' => Request()->w_ibu,
-            'w_tempat_lahir' => Request()->w_tempat_lahir,
-            'w_tanggal_lahir' => Request()->w_tanggal_lahir,
-            'w_alamat' => Request()->w_alamat,
-            'w_rt_rw' => Request()->w_rt_rw,
-            'w_kelurahan' => Request()->w_kelurahan,
-            'w_kecamatan' => Request()->w_kecamatan,
-            'w_kabupaten_kota' => Request()->w_kabupaten_kota,
-            'pandita' => Request()->pandita,
-            'saksi_1' => Request()->saksi_1,
-            'saksi_2' => Request()->saksi_2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-
-        $this->DataPernikahan->addDataPernikahan($data);
-        return redirect()->route('tambah_pernikahan');
-    }
-
-    public function deleteDataPernikahan($id)
-    {
-        $this->DataPernikahan->deleteDataPernikahan($id);
-        return redirect()->route('daftar_pernikahan');
-    }
-
-    // Sertifikat Pernikahan
-    public function generateCertificatePernikahan($id)
-    {
-        $data = [
-            'data_nikah' => DataPernikahan::find($id),
-        ];
-        
-        $customPaper = array(0,0,692,944);
-        $pdf = PDF::loadView('templates.certif_pernikahan', $data)->setOptions(['defaultFont' => 'sans-serif']);
-        //$pdf = PDF::loadView('templates.certif_baptisan', ['jamaat' => $jamaat]);
-        $pdf->setPaper($customPaper);
-
-        return $pdf->download('sertifikatNikah.pdf');
-        //return view('templates.certif_pernikahan', $data);
-    }
-
-    // Sertifikat Baptis
-    public function generateCertificateBaptis($id)
-    {
-        $data = [
-            'jamaat' => Baptisan::where('id_jamaat', $id)->first(),
-        ];
-
-        $customPaper = array(0,0,692,944);
-        $pdf = PDF::loadView('templates.certif_baptisan', $data)->setOptions(['defaultFont' => 'sans-serif']);
-        //$pdf = PDF::loadView('templates.certif_baptisan', $data);
-        $pdf->setPaper($customPaper);
-
-        return $pdf->download('sertifikatBaptis.pdf');
-        //return view('templates.certif_baptisan', $data);
     }
 
     // Daftar Umat Tidak Terdaftar
@@ -542,14 +370,14 @@ class JamaatManageController extends Controller
         Request()->validate([
             'id_code',
             'name' => 'required',
-            'no_handphone_1' => 'required',
+            'no_handphone_1'=> 'required',
             'no_handphone_2',
             'email',
             'gol_darah',
-            'jenis_kelamin'=> 'required',
-            'alamat' => 'required',
-            'kelurahan_kecamatan' => 'required',
-            'kabupaten_kota' => 'required',
+            'jenis_kelamin',
+            'alamat',
+            'kelurahan_kecamatan',
+            'kabupaten_kota',
             'rt_rw',
             'tempat_lahir',
             'tanggal_lahir',
@@ -586,6 +414,11 @@ class JamaatManageController extends Controller
         ];
 
         $this->UserJamaat->addDataJamaat($data);
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah umat tak terdaftar"." ".$data['name'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_jamaat_unreg')->with('success','Data Umat '.Request()->name.' berhasil ditambahkan!');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserHistory;
 use Auth;
 
 class AuthManageController extends Controller
@@ -22,6 +23,10 @@ class AuthManageController extends Controller
     {
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password]))
         {
+            $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+            $newActivity['kegiatan'] = "Log In";
+            UserHistory::create($newActivity);
+
             $guard_name = 'admin';
             return view('templates.admin_main', compact('guard_name'));
         }
@@ -59,15 +64,20 @@ class AuthManageController extends Controller
 
     public function logout(Request $request)
     {
+
         if (Auth::guard('admin')->check())
         {
+            $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+            $newActivity['kegiatan'] = "Log Out";
+            UserHistory::create($newActivity);
+            
             Auth::guard('admin')->logout();
         }
         elseif (Auth::guard('user')->check())
         {
             Auth::guard('user')->logout();
         }
-
+        
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

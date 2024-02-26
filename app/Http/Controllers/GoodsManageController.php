@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Goods;
+use App\Models\UserHistory;
+use Auth;
 
 class GoodsManageController extends Controller
 {
@@ -63,6 +65,11 @@ class GoodsManageController extends Controller
         ];
 
         $this->Goods->addDataGoods($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah Paket"." ".$data['nama_barang'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_data_barang')->with('success','Tambah data paket '.Request()->kode_barang.' berhasil!');;
     }
 
@@ -109,12 +116,23 @@ class GoodsManageController extends Controller
         }
         
         $this->Goods->editDataGoods($id, $data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit Paket"." ".$data['nama_barang'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('edit_data_barang', $id)->with('success','Edit data paket '.Request()->kode_barang.' berhasil!');
     }
 
     public function deleteGoods($id)
     {
+        $nama_barang = Goods::where('id',$id)->value('nama_barang');
         $this->Goods->deleteDataGoods($id);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus Paket"." ".$nama_barang;
+        UserHistory::create($newActivity);
+
         return redirect()->route('daftar_barang');
     }
 }

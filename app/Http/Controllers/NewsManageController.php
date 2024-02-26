@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\News;
+use App\Models\UserHistory;
+use Auth;
 
 class NewsManageController extends Controller
 {
@@ -62,6 +64,11 @@ class NewsManageController extends Controller
         ];
 
         $this->News->addDataNews($data);
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah Berita"." ".$data['judul_berita'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_berita')->with('success','Berita '.Request()->judul_berita.' berhasil ditambahkan!');
     }
 
@@ -102,11 +109,17 @@ class NewsManageController extends Controller
         }
 
         $this->News->editDataNews($id, $data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit Berita"." ".$data['judul_berita'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('detail_data_berita', $id)->with('success','Berita '.Request()->judul_berita.' berhasil diperbarui!');
     }
 
     public function deleteNews($id)
     {
+        $berita = News::where('id',$id)->first()->judul_berita;
         $news = $this->News->detailDataNews($id);
         if ($news->foto_berita <> "")
         {
@@ -114,6 +127,11 @@ class NewsManageController extends Controller
         }
 
         $this->News->deleteDataNews($id);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus Berita"." ".$berita;
+        UserHistory::create($newActivity);
+
         return redirect()->route('daftar_berita');
     }
 }

@@ -80,23 +80,6 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label for="exampleInputEmail1" class="form-label">Status Keaktifan<span
-                                        class="text-danger">*</span></label>
-                                <select name="status_keaktifan" class="form-select" id="ordinary"
-                                    aria-label="Example select with button addon" required>
-                                    @php
-                                        $status = ['Aktif', 'Tidak Aktif'];
-                                    @endphp
-                                    @foreach ($status as $st)
-                                        @if ($st != $donasi->status_keaktifan)
-                                            <option value="{{ $st }}">{{ $st }}</option>
-                                        @else
-                                            <option selected value="{{ $st }}">{{ $st }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12">
                                 <label for="exampleInputEmail1" class="form-label">Keterangan Kegiatan <span
                                         class="text-danger">*</span></label>
                                 <textarea name="keterangan_donasi" class="form-control" id="large" rows="3" required>{{ $donasi->keterangan_donasi }}</textarea>

@@ -38,10 +38,10 @@
                                 <td>{{ $donasi->tanggal_selesai_donasi }}</td>
                                 <td>
                                     <div class="btn-container">
-                                        @if ($donasi->status_keaktifan == "Aktif")
-                                            <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #7C6A0A;">{{ $donasi->status_keaktifan }}</button>
+                                        @if ($donasi->status_keaktifan == 0)
+                                            <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #7C6A0A;">Aktif</button>
                                         @else
-                                            <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #C70039;">{{ $donasi->status_keaktifan }}</button>
+                                            <button type="button" class="btn btn-secondary btn-sm btn-5" style="background: #C70039;">Tidak Aktif</button>
                                         @endif
                                     </div>
                                 </td>

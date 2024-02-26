@@ -84,10 +84,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" id="reportTable">
                                         <thead>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="bodytable">
                                             <tr>
                                                 <th colspan="6" style="font-size:26px; color:red;">Pendapatan</th>
                                             </tr>
@@ -105,26 +105,20 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td> <b> Tunai </b></td>
-                                                <td> <b> Transfer </b></td>
-                                                <td> <b> QRIS </b></td>
-                                                <td> <b> Debit </b> </td>
-                                                <td><b>Total Transaksi Dana</b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> Tunai </b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> Transfer </b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> QRIS </b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> Debit </b> </td>
+                                                <td style="border-bottom: 1px solid black;"><b>Total Transaksi Dana</b></td>
                                             </tr>
 
-                                            <tr>
-                                                <td></td>
-                                                <td id="transaksi_dana_tunai"
-                                                    style="text-align: right; border-top: 1px solid black;"></td>
-                                                <td id="transaksi_dana_transfer"
-                                                    style="text-align: right; border-top: 1px solid black;"></td>
-                                                <td id="transaksi_dana_QRIS"
-                                                    style="text-align: right; border-top: 1px solid black;"></td>
-                                                <td id="transaksi_dana_debit"
-                                                    style="text-align: right; border-top: 1px solid black;"></td>
-                                                <td id="total_transaksi_dana"
-                                                    style="text-align: right;  border-top: 1px solid black;"></td>
-                                            </tr>
+                                            @foreach ($kegiatans as $item)
+                                            <tr id="tr_transaksi_dana{{$item->id}}">
+                                                <td>{{$item->nama_kegiatan_donasi}}</td>
+                                            </tr> 
+                                            @endforeach
+                                            
+                                            
                                             <tr>
                                                 <td style="height:40px"></td>
                                                 <td></td>
@@ -147,27 +141,19 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td> <b> Tunai </b></td>
-                                                <td> <b> Transfer </b></td>
-                                                <td> <b> QRIS </b></td>
-                                                <td> <b> Debit </b> </td>
-                                                <td><b>Total Transaksi Paket</b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> Tunai </b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> Transfer </b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> QRIS </b></td>
+                                                <td style="border-bottom: 1px solid black;"> <b> Debit </b> </td>
+                                                <td style="border-bottom: 1px solid black;"><b>Total Transaksi Paket</b></td>
                                             </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td id="transaksi_paket_tunai"
-                                                    style="text-align: right;  border-top: 1px solid black;"></td>
-                                                <td id="transaksi_paket_transfer"
-                                                    style="text-align: right;  border-top: 1px solid black;"></td>
-                                                <td id="transaksi_paket_QRIS"
-                                                    style="text-align: right;  border-top: 1px solid black;"></td>
-                                                <td id="transaksi_paket_debit"
-                                                    style="text-align: right;  border-top: 1px solid black;"></td>
-                                                <td id="total_transaksi_paket"
-                                                    style="text-align: right;  border-top: 1px solid black;">
-                                                    </th>
-                                                </td>
 
+                                            @foreach ($kegiatans as $item)
+                                            <tr id="tr_transaksi_paket{{$item->id}}">
+                                                <td>{{$item->nama_kegiatan_donasi}}</td>
+                                            </tr> 
+                                            @endforeach
+                                            
                                             <tr>
                                                 <td style="height:40px"></td>
                                                 <td></td>
@@ -312,7 +298,7 @@
                                                 </th>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>
+                                                <td><h6><b> Total Pendapatan</b></h6></td>
                                                 <th id="total-pendapatan" style="text-align: right;">
                                                 </th>
                                             </tr>
@@ -366,14 +352,13 @@
                                             </tr> --}}
                                             <tr>
                                                 <td>
-                                                    <h6><b>Total Pengeluaran</b></h6>
+                                                    <h6><b>Total Pengeluaran Tunai</b></h6>
                                                 </td>
-                                                <td id="total-pengeluaran" style=" text-align: right;"></td>
+                                                <td id="total-pengeluaran-tunai" style=" text-align: right;"></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>
-                                                <th>
-                                                </th>
+                                                <td><h6><b>Total Pengeluaran</b></h6></td>
+                                                <th id="total-pengeluaran" style=" text-align: right;"></th>
                                             </tr>
                                             {{-- <tr>
                                                 <th colspan="4">Laba</th>
@@ -382,11 +367,11 @@
                                                 <td>
                                                     <h6><b>Saldo Kas Tunai</b></h6>
                                                 </td>
-                                                <td id="laba-bersih" style="text-align: right;"></td>
+                                                <td id="saldo-tunai" style="text-align: right;"></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td></td>
-                                                <th></th>
+                                                <td><h6><b>Total Saldo</b></h6></td>
+                                                <th id="laba-bersih" style="text-align: right;"></th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -416,18 +401,18 @@
                 method: "GET",
                 success: function(response) {
                     // Pemasukan
-                    var transaksi = response.total_transaksi;
-                    var total_pendapatan = response.total_pendapatan;
-                    var total_pendapatan_kas = response.total_pendapatan_kas;
-                    var date = response.date;
+                    var transaksi = response.all_data.total_transaksi;
+                    var total_pendapatan = response.all_data.total_pendapatan;
+                    var total_pendapatan_kas = response.all_data.total_pendapatan_kas;
+                    var date = response.all_data.date;
 
                     // Kas Masuk
-                    var kasMasuk = response.total_kas_masuk;
-                    var km_1 = response.km_1;
-                    var km_2 = response.km_2;
-                    var km_3 = response.km_3;
-                    var km_4 = response.km_4;
-                    var km_5 = response.km_5;
+                    var kasMasuk = response.all_data.total_kas_masuk;
+                    var km_1 = response.all_data.km_1;
+                    var km_2 = response.all_data.km_2;
+                    var km_3 = response.all_data.km_3;
+                    var km_4 = response.all_data.km_4;
+                    var km_5 = response.all_data.km_5;
                     var total_km_1 = km_1;
                     var total_km_2 = km_2;
                     var total_km_3 = km_3;
@@ -435,40 +420,53 @@
                     var total_km_5 = km_5;
 
                     // ===== Transaksi Dana ===== //
-                    var transaksi_dana_tunai = response.transaksi_dana_tunai;
-                    var transaksi_dana_transfer = response.transaksi_dana_transfer;
-                    var transaksi_dana_QRIS = response.transaksi_dana_QRIS;
-                    var transaksi_dana_debit = response.transaksi_dana_debit;
-                    var total_transaksi_dana = response.total_transaksi_dana;
+                    var data_transaksi_dana = response.transaksi_dana;
+                    $.each(data_transaksi_dana,function(i,e) {
+                        var tr = $('#tr_transaksi_dana'+ e.id).append(
+                            $('<td>').html(e.transaksi_dana_tunai).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_transfer).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_QRIS).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_debit).css({'text-align':'right'}),
+                            $('<td>').html(e.total_transaksi_dana).css({'text-align':'right'}),
+                        );
+                    });
+                    console.log(data_transaksi_dana);
 
                     // ===== Transaksi Paket ===== //
-                    var transaksi_paket_tunai = response.transaksi_paket_tunai;
-                    var transaksi_paket_transfer = response.transaksi_paket_transfer;
-                    var transaksi_paket_QRIS = response.transaksi_paket_QRIS;
-                    var transaksi_paket_debit = response.transaksi_paket_debit;
-                    var total_transaksi_paket = response.total_transaksi_paket;
+                    var data_transaksi_paket = response.transaksi_paket;
+                    $.each(data_transaksi_paket,function(i,e) {
+                        var tr = $('#tr_transaksi_paket'+ e.id).append(
+                            $('<td>').html(e.transaksi_paket_tunai).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_transfer).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_QRIS).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_debit).css({'text-align':'right'}),
+                            $('<td>').html(e.total_transaksi_paket).css({'text-align':'right'}),
+                        );
+                    });
+                    console.log(data_transaksi_paket);
 
                     // ===== Transaksi Foto ===== //
-                    var transaksi_foto_tunai = response.transaksi_foto_tunai;
-                    var transaksi_foto_transfer = response.transaksi_foto_transfer;
-                    var transaksi_foto_QRIS = response.transaksi_foto_QRIS;
-                    var transaksi_foto_debit = response.transaksi_foto_debit;
-                    var total_transaksi_foto = response.total_transaksi_foto;
+                    var transaksi_foto_tunai = response.all_data.transaksi_foto_tunai;
+                    var transaksi_foto_transfer = response.all_data.transaksi_foto_transfer;
+                    var transaksi_foto_QRIS = response.all_data.transaksi_foto_QRIS;
+                    var transaksi_foto_debit = response.all_data.transaksi_foto_debit;
+                    var total_transaksi_foto = response.all_data.total_transaksi_foto;
 
                     // ===== Transaksi Foto Unreg ===== //
-                    var transaksi_foto_unreg_tunai = response.transaksi_foto_unreg_tunai;
-                    var transaksi_foto_unreg_transfer = response.transaksi_foto_unreg_transfer;
-                    var transaksi_foto_unreg_QRIS = response.transaksi_foto_unreg_QRIS;
-                    var transaksi_foto_unreg_debit = response.transaksi_foto_unreg_debit;
-                    var total_transaksi_foto_unreg = response.total_transaksi_foto_unreg;
+                    var transaksi_foto_unreg_tunai = response.all_data.transaksi_foto_unreg_tunai;
+                    var transaksi_foto_unreg_transfer = response.all_data.transaksi_foto_unreg_transfer;
+                    var transaksi_foto_unreg_QRIS = response.all_data.transaksi_foto_unreg_QRIS;
+                    var transaksi_foto_unreg_debit = response.all_data.transaksi_foto_unreg_debit;
+                    var total_transaksi_foto_unreg = response.all_data.total_transaksi_foto_unreg;
 
                     // Pengeluaran
-                    var total_pengeluaran = response.total_pengeluaran;
-                    var total_pengeluaranTu = response.total_pengeluaran_tu;
-                    var total_pengeluaranTf = response.total_pengeluaran_tf;
+                    var total_pengeluaran = response.all_data.total_pengeluaran;
+                    var total_pengeluaranTu = response.all_data.total_pengeluaran_tu;
+                    var total_pengeluaranTf = response.all_data.total_pengeluaran_tf;
 
                     // Laba
-                    var laba_bersih = response.laba_bersih;
+                    var saldo_tunai = response.all_data.saldo_tunai;
+                    var laba_bersih = response.all_data.laba_bersih;
 
                     $('#periode').html("Periode : Bulan " + date);
 
@@ -486,19 +484,6 @@
                     $('#kas_masuk').html(kasMasuk);
                     $('#total_kas_masuk').html(kasMasuk);
 
-                    // ===== Transaksi Dana ===== //
-                    $('#transaksi_dana_tunai').html(transaksi_dana_tunai)
-                    $('#transaksi_dana_transfer').html(transaksi_dana_transfer)
-                    $('#transaksi_dana_QRIS').html(transaksi_dana_QRIS)
-                    $('#transaksi_dana_debit').html(transaksi_dana_debit)
-                    $('#total_transaksi_dana').html(total_transaksi_dana)
-
-                    // ===== Transaksi Paket ===== //
-                    $('#transaksi_paket_tunai').html(transaksi_paket_tunai)
-                    $('#transaksi_paket_transfer').html(transaksi_paket_transfer)
-                    $('#transaksi_paket_QRIS').html(transaksi_paket_QRIS)
-                    $('#transaksi_paket_debit').html(transaksi_paket_debit)
-                    $('#total_transaksi_paket').html(total_transaksi_paket)
                     // Foto
                     $('#transaksi-foto-tunai').html(transaksi_foto_tunai);
                     $('#transaksi-foto-transfer').html(transaksi_foto_transfer);
@@ -519,9 +504,12 @@
                     $('#kas-keluar').html(total_pengeluaranTu);
                     $('#kas-keluar-tf').html(total_pengeluaranTf);
                     $('#total-kas-keluar').html(total_pengeluaran);
+                    $('#total-pengeluaran-tunai').html("<h6><b> Rp. " + total_pengeluaranTu + "</b></h6>");
                     $('#total-pengeluaran').html("<h6><b> Rp. " + total_pengeluaran + "</b></h6>");
+                    $('#saldo-tunai').html("<h6><b> Rp. " + saldo_tunai + "</b></h6>");
                     $('#laba-bersih').html("<h6><b> Rp. " + laba_bersih + "</b></h6>");
                     // $('#laba-bersih').addClass(response.laba_class);
+                    
                 }
             });
         });
@@ -531,24 +519,24 @@
             var tahun_bulan = document.getElementById('tahun_bulan').value;
 
             console.log(tahun_bulan);
-
             $.ajax({
                 url: "{{ url('/laporan-keuangan/data-transaksi') }}/" + tahun_bulan,
                 method: "GET",
                 success: function(response) {
+                    
                     // Pemasukan
-                    var transaksi = response.total_transaksi;
-                    var total_pendapatan = response.total_pendapatan;
-                    var total_pendapatan_kas = response.total_pendapatan_kas;
-                    var date = response.date;
+                    var transaksi = response.all_data.total_transaksi;
+                    var total_pendapatan = response.all_data.total_pendapatan;
+                    var total_pendapatan_kas = response.all_data.total_pendapatan_kas;
+                    var date = response.all_data.date;
 
                     // Kas Masuk
-                    var kasMasuk = response.total_kas_masuk;
-                    var km_1 = response.km_1;
-                    var km_2 = response.km_2;
-                    var km_3 = response.km_3;
-                    var km_4 = response.km_4;
-                    var km_5 = response.km_5;
+                    var kasMasuk = response.all_data.total_kas_masuk;
+                    var km_1 = response.all_data.km_1;
+                    var km_2 = response.all_data.km_2;
+                    var km_3 = response.all_data.km_3;
+                    var km_4 = response.all_data.km_4;
+                    var km_5 = response.all_data.km_5;
                     var total_km_1 = km_1;
                     var total_km_2 = km_2;
                     var total_km_3 = km_3;
@@ -556,40 +544,57 @@
                     var total_km_5 = km_5;
 
                     // ===== Transaksi Dana ===== //
-                    var transaksi_dana_tunai = response.transaksi_dana_tunai;
-                    var transaksi_dana_transfer = response.transaksi_dana_transfer;
-                    var transaksi_dana_QRIS = response.transaksi_dana_QRIS;
-                    var transaksi_dana_debit = response.transaksi_dana_debit;
-                    var total_transaksi_dana = response.total_transaksi_dana;
+                    var data_transaksi_dana = response.transaksi_dana;
+                    $.each(data_transaksi_dana,function(i,e) {
+                        $('#tr_transaksi_dana'+ e.id).empty();
+                        var tr = $('#tr_transaksi_dana'+ e.id).append(
+                            $('<td>').html(e.nama_kegiatan).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_tunai).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_transfer).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_QRIS).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_dana_debit).css({'text-align':'right'}),
+                            $('<td>').html(e.total_transaksi_dana).css({'text-align':'right'}),
+                        );
+                    });
+                    console.log(data_transaksi_dana);
 
                     // ===== Transaksi Paket ===== //
-                    var transaksi_paket_tunai = response.transaksi_paket_tunai;
-                    var transaksi_paket_transfer = response.transaksi_paket_transfer;
-                    var transaksi_paket_QRIS = response.transaksi_paket_QRIS;
-                    var transaksi_paket_debit = response.transaksi_paket_debit;
-                    var total_transaksi_paket = response.total_transaksi_paket;
+                    var data_transaksi_paket = response.transaksi_paket;
+                    $.each(data_transaksi_paket,function(i,e) {
+                        $('#tr_transaksi_paket'+ e.id).empty();
+                        var tr = $('#tr_transaksi_paket'+ e.id).append(
+                            $('<td>').html(e.nama_kegiatan).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_tunai).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_transfer).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_QRIS).css({'text-align':'right'}),
+                            $('<td>').html(e.transaksi_paket_debit).css({'text-align':'right'}),
+                            $('<td>').html(e.total_transaksi_paket).css({'text-align':'right'}),
+                        );
+                    });
+                    console.log(data_transaksi_paket);
 
                     // ===== Transaksi Foto ===== //
-                    var transaksi_foto_tunai = response.transaksi_foto_tunai;
-                    var transaksi_foto_transfer = response.transaksi_foto_transfer;
-                    var transaksi_foto_QRIS = response.transaksi_foto_QRIS;
-                    var transaksi_foto_debit = response.transaksi_foto_debit;
-                    var total_transaksi_foto = response.total_transaksi_foto;
+                    var transaksi_foto_tunai = response.all_data.transaksi_foto_tunai;
+                    var transaksi_foto_transfer = response.all_data.transaksi_foto_transfer;
+                    var transaksi_foto_QRIS = response.all_data.transaksi_foto_QRIS;
+                    var transaksi_foto_debit = response.all_data.transaksi_foto_debit;
+                    var total_transaksi_foto = response.all_data.total_transaksi_foto;
 
                     // ===== Transaksi Foto Unreg ===== //
-                    var transaksi_foto_unreg_tunai = response.transaksi_foto_unreg_tunai;
-                    var transaksi_foto_unreg_transfer = response.transaksi_foto_unreg_transfer;
-                    var transaksi_foto_unreg_QRIS = response.transaksi_foto_unreg_QRIS;
-                    var transaksi_foto_unreg_debit = response.transaksi_foto_unreg_debit;
-                    var total_transaksi_foto_unreg = response.total_transaksi_foto_unreg;
+                    var transaksi_foto_unreg_tunai = response.all_data.transaksi_foto_unreg_tunai;
+                    var transaksi_foto_unreg_transfer = response.all_data.transaksi_foto_unreg_transfer;
+                    var transaksi_foto_unreg_QRIS = response.all_data.transaksi_foto_unreg_QRIS;
+                    var transaksi_foto_unreg_debit = response.all_data.transaksi_foto_unreg_debit;
+                    var total_transaksi_foto_unreg = response.all_data.total_transaksi_foto_unreg;
 
                     // Pengeluaran
-                    var total_pengeluaran = response.total_pengeluaran;
-                    var total_pengeluaranTu = response.total_pengeluaran_tu;
-                    var total_pengeluaranTf = response.total_pengeluaran_tf;
+                    var total_pengeluaran = response.all_data.total_pengeluaran;
+                    var total_pengeluaranTu = response.all_data.total_pengeluaran_tu;
+                    var total_pengeluaranTf = response.all_data.total_pengeluaran_tf;
 
                     // Laba
-                    var laba_bersih = response.laba_bersih;
+                    var saldo_tunai = response.all_data.saldo_tunai;
+                    var laba_bersih = response.all_data.laba_bersih;
 
                     $('#periode').html("Periode : Bulan " + date);
 
@@ -607,19 +612,6 @@
                     $('#kas_masuk').html(kasMasuk);
                     $('#total_kas_masuk').html(kasMasuk);
 
-                    // ===== Transaksi Dana ===== //
-                    $('#transaksi_dana_tunai').html(transaksi_dana_tunai)
-                    $('#transaksi_dana_transfer').html(transaksi_dana_transfer)
-                    $('#transaksi_dana_QRIS').html(transaksi_dana_QRIS)
-                    $('#transaksi_dana_debit').html(transaksi_dana_debit)
-                    $('#total_transaksi_dana').html(total_transaksi_dana)
-
-                    // ===== Transaksi Paket ===== //
-                    $('#transaksi_paket_tunai').html(transaksi_paket_tunai)
-                    $('#transaksi_paket_transfer').html(transaksi_paket_transfer)
-                    $('#transaksi_paket_QRIS').html(transaksi_paket_QRIS)
-                    $('#transaksi_paket_debit').html(transaksi_paket_debit)
-                    $('#total_transaksi_paket').html(total_transaksi_paket)
                     // Foto
                     $('#transaksi-foto-tunai').html(transaksi_foto_tunai);
                     $('#transaksi-foto-transfer').html(transaksi_foto_transfer);
@@ -640,9 +632,12 @@
                     $('#kas-keluar').html(total_pengeluaranTu);
                     $('#kas-keluar-tf').html(total_pengeluaranTf);
                     $('#total-kas-keluar').html(total_pengeluaran);
+                    $('#total-pengeluaran-tunai').html("<h6><b> Rp. " + total_pengeluaranTu + "</b></h6>");
                     $('#total-pengeluaran').html("<h6><b> Rp. " + total_pengeluaran + "</b></h6>");
+                    $('#saldo-tunai').html("<h6><b> Rp. " + saldo_tunai + "</b></h6>");
                     $('#laba-bersih').html("<h6><b> Rp. " + laba_bersih + "</b></h6>");
                     // $('#laba-bersih').addClass(response.laba_class);
+                    
                 }
             });
         });

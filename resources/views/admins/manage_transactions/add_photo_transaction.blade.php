@@ -84,7 +84,8 @@
                                         <p>Kode Transaksi : </p>
                                     </div>
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-7">
-                                        <p id="vkode_transaksi"></p>
+                                        {{-- <p id="vkode_transaksi"></p> --}}
+                                        <p>{{$new_trans_code}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +282,7 @@
                                         </div>
                                         <div class="col-md-8 ms-auto">
                                             <input type="text" id="kode_transaksi" name="kode_transaksi"
-                                                value="" class="form-control" aria-describedby="emailHelp"
+                                                value="{{$new_trans_code}}" class="form-control" aria-describedby="emailHelp"
                                                 readonly>
                                         </div>
                                     </div>
@@ -567,7 +568,7 @@
             document.getElementById("nama_pemesan").value = document.querySelector('.nama-pemesan').value;
             document.getElementById("id_pemesan").value = document.querySelector('#id_jamaat').value;
             document.getElementById("alamat_pemesan").value = document.querySelector('.alamat-pemesan').value;
-            document.getElementById("kode_transaksi").value = transactionCode;
+            document.getElementById("kode_transaksi").value;
             document.getElementById("tanggal_transaksi").value = today;
             document.getElementById("_total_harga_keseluruhan").value = convertDecimalToRupiah(total_bayar_transaksi);
             document.getElementById("total_harga_keseluruhan").value = total_bayar_transaksi;

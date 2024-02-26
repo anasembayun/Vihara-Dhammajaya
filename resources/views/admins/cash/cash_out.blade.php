@@ -48,8 +48,8 @@
                                 <div class="container-fluid row g-3">
                                     <div class="col-12">
                                         <label for="exampleInputEmail1" class="form-label">Nomor</label>
-                                        <input name="nomor_kas_keluar" value="" type="text"
-                                            class="form-control no-kas" id="ordinary" aria-describedby="emailHelp"
+                                        <input name="nomor_kas_keluar" value="{{$new_cash_code}}" type="text"
+                                            class="form-control" id="ordinary" aria-describedby="emailHelp"
                                             readonly>
                                     </div>
                                     <div class="col-12">

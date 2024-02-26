@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Donasi;
+use App\Models\UserHistory;
+use Carbon\Carbon;
+use Auth;
 
 class DonasiManageController extends Controller
 {
@@ -20,6 +23,7 @@ class DonasiManageController extends Controller
 
     public function viewDataKegiatanDonasi()
     {
+        $this->updateStatusKegiatan();
         $donasis = Donasi::all();
         return view('admins.manage_donations.list_donation_program', compact('donasis'));
     }
@@ -68,12 +72,17 @@ class DonasiManageController extends Controller
             'total_donasi' => 0.00,
             'total_donatur' => 0,
             'status' => 'Dana terus dikumpul',
-            'status_keaktifan' => 'Aktif',
+            'status_keaktifan' => 0,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->Donasi->addDataDonasi($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah Kegiatan Donasi"." ".$data['nama_kegiatan_donasi'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_kegiatan_donasi')->with('success', 'Kegiatan '.Request()->nama_kegiatan_donasi.' berhasil ditambahkan!');
     }
 
@@ -83,7 +92,6 @@ class DonasiManageController extends Controller
             'tanggal_mulai_donasi' => 'required',
             'tanggal_selesai_donasi' => 'required',
             'status' => 'required',
-            'status_keaktifan' => 'required',
             'keterangan_donasi' => 'required',
             'foto_kegiatan_donasi',
         ]);
@@ -104,7 +112,6 @@ class DonasiManageController extends Controller
                 'tanggal_mulai_donasi' => Request()->tanggal_mulai_donasi,
                 'tanggal_selesai_donasi' => Request()->tanggal_selesai_donasi,
                 'status' => Request()->status,
-                'status_keaktifan' => Request()->status_keaktifan,
                 'keterangan_donasi' => Request()->keterangan_donasi,
                 'foto_kegiatan_donasi' => $filename,
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -116,7 +123,6 @@ class DonasiManageController extends Controller
                 'tanggal_mulai_donasi' => Request()->tanggal_mulai_donasi,
                 'tanggal_selesai_donasi' => Request()->tanggal_selesai_donasi,
                 'status' => Request()->status,
-                'status_keaktifan' => Request()->status_keaktifan,
                 'keterangan_donasi' => Request()->keterangan_donasi,
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
@@ -125,6 +131,11 @@ class DonasiManageController extends Controller
         $nama_kegiatan_donasi = Donasi::where('id', $id)->value('nama_kegiatan_donasi');
 
         $this->Donasi->editDataDonasi($id, $data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit Kegiatan Donasi"." ".$nama_kegiatan_donasi;
+        UserHistory::create($newActivity);
+
         return redirect()->route('edit_data_donasi', $id)->with('success','Edit data kegiatan donasi '.$nama_kegiatan_donasi.' berhasil!');
     }
 
@@ -151,8 +162,34 @@ class DonasiManageController extends Controller
         {
             unlink(public_path('images/app_admin/kelola_donasi/foto_kegiatan_donasi').'/'.$donasi->foto_kegiatan_donasi);
         }
-
+        $nama_kegiatan_donasi = Donasi::where('id', $id)->value('nama_kegiatan_donasi');
         $this->Donasi->deleteDataDonasi($id);
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus Kegiatan Donasi"." ".$nama_kegiatan_donasi;
+        UserHistory::create($newActivity);
+
         return redirect()->route('daftar_kegiatan_donasi');
+    }
+
+    public function updateStatusKegiatan()
+    {
+        $kegiatans=Donasi::all();
+        date_default_timezone_set('Asia/Jakarta');
+
+        foreach ($kegiatans as $kegiatan)
+        {
+                $dateAwal = $kegiatan->tanggal_mulai_donasi;
+                $dateAkhir = $kegiatan->tanggal_selesai_donasi;
+                $dateNow = date('Y-m-d');
+
+                if ($kegiatan->status_keaktifan != 2)
+                {
+                    if($dateNow >= $dateAwal && $dateNow <= $dateAkhir)
+                        $kegiatan->status_keaktifan = 0;
+                    else
+                        $kegiatan->status_keaktifan = 1;
+                }
+                $kegiatan->update();
+        }
     }
 }

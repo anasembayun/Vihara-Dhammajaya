@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\DataPesanBaik;
+use App\Models\UserHistory;
+use Auth;
 
 class PesanBaikManageController extends Controller
 {
@@ -43,6 +45,11 @@ class PesanBaikManageController extends Controller
         ];
 
         $this->DataPesanBaik->addDataPesanBaik($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah pesan baik"." ".$data['pesan_baik'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_pesan_baik')->with('success','Data berhasil ditambahkan!');
     }
 
@@ -57,12 +64,24 @@ class PesanBaikManageController extends Controller
         ];
 
         $this->DataPesanBaik->editDataPesanBaik($id, $data);
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit pesan baik"." ".$data['pesan_baik'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('edit_pesan_baik', $id)->with('success','Data berhasil diperbarui!');
     }
 
     public function deletePesanBaik($id)
     {
+        $pesan = DataPesanBaik::where('id', $id)->first()->pesan_baik;
+        
         $this->DataPesanBaik->deleteDataPesanBaik($id);
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus pesan baik"." ".$pesan;
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_pesan_baik')->with('success','Data berhasil dihapus!');
     }
 }

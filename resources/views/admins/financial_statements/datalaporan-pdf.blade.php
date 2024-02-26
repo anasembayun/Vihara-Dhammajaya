@@ -112,14 +112,24 @@
                         <td style="border-bottom: 1pt solid black;"> <b> Debit </b> </td>
                         <td style="border-bottom: 1pt solid black;"><b>Total Transaksi Dana</b></td>
                     </tr>
-                    <tr>
+                    @foreach ($kegiatan_dana as $item)
+                        <tr> 
+                            <td> {{ $item->nama_kegiatan_donasi }} </td>
+                            <td> {{ number_format($item->transaksi_dana_tunai,0,',','.') }} </td>
+                            <td> {{ number_format($item->transaksi_dana_transfer,0,',','.') }}</td>
+                            <td> {{ number_format($item->transaksi_dana_QRIS,0,',','.') }}</td>
+                            <td> {{ number_format($item->transaksi_dana_debit,0,',','.') }}</td>
+                            <td>{{ number_format($item->total_transaksi_dn,0,',','.') }}</td>
+                        </tr>
+                    @endforeach
+                    {{-- <tr>
                         <td></td>
                         <td id="transaksi_dana_tunai" class="right">{{ $transaksi_dana_tunai }}</td>
                         <td id="transaksi_dana_transfer" class="right">{{ $transaksi_dana_transfer }}</td>
                         <td id="transaksi_dana_QRIS" class="right">{{ $transaksi_dana_QRIS }}</td>
                         <td id="transaksi_dana_debit" class="right">{{ $transaksi_dana_debit }}</td>
                         <td id="total_transaksi_dana" class="right">{{ $total_transaksi_dana }}</td>
-                    </tr>
+                    </tr> --}}
 
                     <tr>
                         <td style="height:2%"></td>
@@ -149,14 +159,24 @@
                         <td style="border-bottom: 1pt solid black;"> <b> Debit </b> </td>
                         <td style="border-bottom: 1pt solid black;"><b>Total Transaksi Paket</b></td>
                     </tr>
-                    <tr>
+                    @foreach ($kegiatan_paket as $item)
+                    <tr> 
+                        <td> {{ $item->nama_kegiatan_donasi }} </td>
+                        <td> {{ number_format($item->transaksi_paket_tunai,0,',','.') }} </td>
+                        <td> {{ number_format($item->transaksi_paket_transfer,0,',','.') }}</td>
+                        <td> {{ number_format($item->transaksi_paket_QRIS,0,',','.') }}</td>
+                        <td> {{ number_format($item->transaksi_paket_debit,0,',','.') }}</td>
+                        <td>{{ number_format($item->total_transaksi_pkt,0,',','.') }}</td>
+                    </tr>
+                    @endforeach
+                    {{-- <tr>
                         <td></td>
                         <td id="transaksi_paket_tunai" class="right">{{ $transaksi_paket_tunai }}</td>
                         <td id="transaksi_paket_transfer" class="right">{{ $transaksi_paket_transfer }}</td>
                         <td id="transaksi_paket_QRIS" class="right">{{ $transaksi_paket_QRIS }}</td>
                         <td id="transaksi_paket_debit" class="right">{{ $transaksi_paket_debit }}</td>
                         <td id="total_transaksi_paket" class="right">{{ $total_transaksi_paket }}</td>
-                    </tr>
+                    </tr> --}}
 
                     <tr>
                         <td style="height:2%"></td>
@@ -348,13 +368,13 @@
                         <td></td>
                     </tr>
                     <tr class="total">
-                        <td><b>Total Pengeluaran</b></td>
+                        <td><b>Total Pengeluaran Tunai</b></td>
                         <th class="right" id="total-pengeluaran">
-                            {{ $total_pengeluaran }} </th>
+                            {{ $total_pengeluaranTu }} </th>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><b>Total Pengeluaran</b></td>
+                        <td>{{$total_pengeluaran}}</td>
 
                     </tr>
 
@@ -370,12 +390,12 @@
                     <tr class="total">
                         <td><b>Saldo Kas Tunai</b></td>
                         <th class="right" id="laba-bersih">
-                            {{ $laba_bersih }}
+                            {{$saldo_tunai}} 
                         </th>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Total Saldo</td>
+                        <td>{{ $laba_bersih }}</td>
 
                     </tr>
                 </tbody>

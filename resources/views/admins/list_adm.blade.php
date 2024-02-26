@@ -29,10 +29,10 @@
                     <thead>
                         <tr>
                             <th scope="col" style="width:5%;">No</th>
-                            <th scope="col" style="width:20%;">Nama</th>
-                            <th scope="col" style="width:20%;">Username</th>
-                            <th scope="col" style="width:20%;">Posisi</th>
-                            <th scope="col" style="width:15%;">Aksi</th>
+                            <th scope="col" style="width:18%;">Nama</th>
+                            <th scope="col" style="width:18%;">Username</th>
+                            <th scope="col" style="width:18%;">Posisi</th>
+                            <th scope="col" style="width:20%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="px-3">
@@ -58,6 +58,10 @@
                                             <button class="btn bg-white" id="btn-6" type="button" data-bs-toggle="modal" data-bs-target="#deleteAdminModal{{ $user->id }}">
                                                 <img src="{{ asset('images/app_admin/kelola_admin/trash-can.png') }}" style="width:20px">
                                             </button>
+                                            <a href="{{ url('kelola-admin/history-admin/'.$user->id) }}" id="btn-6" 
+                                                class="btn bg-white" tabindex="-1" role="button" aria-disabled="true">
+                                                <i style="color:#6F6C6C; width:20px" class="fa fa-eye"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>

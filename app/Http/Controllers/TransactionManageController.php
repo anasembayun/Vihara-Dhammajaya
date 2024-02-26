@@ -18,6 +18,8 @@ use App\Models\DataPesanBaik;
 use Input;
 use PDF;
 use Carbon\Carbon;
+use App\Models\UserHistory;
+use Auth;
 
 class TransactionManageController extends Controller
 {
@@ -38,10 +40,31 @@ class TransactionManageController extends Controller
     // TRANSAKSI PAKET DONASI
     public function viewAddGoodsDonationTransaction()
     {
+        $last_trans_code = Transaksi::where('kategori_donasi','Paket')->orderBy('id', 'desc')->first()->kode_transaksi ?? 0;
+        $last_digit = substr($last_trans_code, -10);
+
+        if (ctype_digit($last_digit)) {
+            $check_date = substr($last_trans_code , 2, 6);
+            $last_increament = substr($last_trans_code, -4);
+
+            if($check_date === date('ymd')) {
+                $new_trans_code = 'TP' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            else 
+            {
+                $last_increament = 0;
+                $new_trans_code = 'TP' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            
+        } else {
+            $last_increament = 0;
+            $new_trans_code = 'TP' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+        }
+
         $goods = Goods::where('keterangan', 'Tersedia')->where('status_keaktifan','Aktif')->get();
         $jamaats = UserJamaat::all();
         $donasis = Donasi::where('status_keaktifan','Aktif')->get();
-        return view('admins.manage_transactions.add_transaction', compact('goods', 'jamaats', 'donasis'));
+        return view('admins.manage_transactions.add_transaction', compact('goods', 'jamaats', 'donasis', 'new_trans_code'));
     }
 
     public function validationGoodsTransaction($id, Request $req){
@@ -95,6 +118,10 @@ class TransactionManageController extends Controller
             'random_pesan_baik' => DataPesanBaik::inRandomOrder()->limit(1)->first()
         ];
 
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah transaksi paket"." ".$data['kode_transaksi'];
+        UserHistory::create($newActivity);
+
         return view('templates.struk_donasi_html', $data2);
 
         // return redirect()->route('tambah_transaksi_barang')->with('success','Transaksi berhasil ditambahkan!');
@@ -113,9 +140,30 @@ class TransactionManageController extends Controller
     // TRANSAKSI UANG DONASI
     public function viewAddMoneyDonationTransaction()
     {
+        $last_trans_code = Transaksi::where('kategori_donasi','Dana')->orderBy('id', 'desc')->first()->kode_transaksi ?? 0;
+        $last_digit = substr($last_trans_code, -10);
+
+        if (ctype_digit($last_digit)) {
+            $check_date = substr($last_trans_code , 2, 6);
+            $last_increament = substr($last_trans_code, -4);
+            
+            if($check_date === date('ymd')) {
+                $new_trans_code = 'TD' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            else 
+            {
+                $last_increament = 0;
+                $new_trans_code = 'TD' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            
+        } else {
+            $last_increament = 0;
+            $new_trans_code = 'TD' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+        }
+
         $jamaats = UserJamaat::all();
-        $donasis = Donasi::where('status_keaktifan','Aktif')->get();
-        return view('admins.manage_transactions.add_transaction_uang', compact('jamaats', 'donasis'));
+        $donasis = Donasi::where('status_keaktifan',0)->get();
+        return view('admins.manage_transactions.add_transaction_uang', compact('jamaats', 'donasis', 'new_trans_code'));
     }
 
     public function validationMoneyTransaction(Request $req){
@@ -159,6 +207,10 @@ class TransactionManageController extends Controller
             'random_pesan_baik' => DataPesanBaik::inRandomOrder()->limit(1)->first()
         ];
 
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah transaksi dana"." ".$data['kode_transaksi'];
+        UserHistory::create($newActivity);
+
         return view('templates.struk_donasi_html', $data2);
 
         // return redirect()->route('tambah_transaksi_uang')->with('success','Transaksi berhasil ditambahkan!');
@@ -167,9 +219,30 @@ class TransactionManageController extends Controller
     // TRANSAKSI FOTO (PESAN PAS FOTO)
     public function viewAddPhotoTransaction()
     {
+        $last_trans_code = TransaksiFoto::orderBy('id', 'desc')->first()->kode_transaksi ?? 0;
+        $last_digit = substr($last_trans_code, -10);
+
+        if (ctype_digit($last_digit)) {
+            $check_date = substr($last_trans_code , 2, 6);
+            $last_increament = substr($last_trans_code, -4);
+            
+            if($check_date === date('ymd')) {
+                $new_trans_code = 'TF' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            else 
+            {
+                $last_increament = 0;
+                $new_trans_code = 'TF' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            
+        } else {
+            $last_increament = 0;
+            $new_trans_code = 'TF' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+        }
+
         // $goods = Goods::where('keterangan', 'Tersedia')->get();
         $jamaats = Leluhur::select('id_pemesan')->distinct()->get();
-        return view('admins.manage_transactions.add_photo_transaction', compact('jamaats'));
+        return view('admins.manage_transactions.add_photo_transaction', compact('jamaats', 'new_trans_code'));
     }
 
     public function showDataMendiangByID($id)
@@ -241,6 +314,11 @@ class TransactionManageController extends Controller
         }
 
         $this->TransaksiFoto->addDataTransactionPhoto($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah transaksi foto"." ".$data['kode_transaksi'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_transaksi_foto')->with('success','Transaksi berhasil ditambahkan!');
     }
 
@@ -319,9 +397,30 @@ class TransactionManageController extends Controller
     // TRANSAKSI FOTO UNREGISTERED UMAT (PESAN PAS FOTO)
     public function viewAddPhotoTransaction_2()
     {
+        $last_trans_code = TransaksiFotoUnreg::orderBy('id', 'desc')->first()->kode_transaksi ?? 0;
+        $last_digit = substr($last_trans_code, -10);
+
+        if (ctype_digit($last_digit)) {
+            $check_date = substr($last_trans_code , 2, 6);
+            $last_increament = substr($last_trans_code, -4);
+            
+            if($check_date === date('ymd')) {
+                $new_trans_code = 'FU' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            else 
+            {
+                $last_increament = 0;
+                $new_trans_code = 'FU' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            
+        } else {
+            $last_increament = 0;
+            $new_trans_code = 'FU' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+        }
+
         $jamaats = Leluhur::select('id_pemesan')->distinct()->get();
-        $donasis = Donasi::all();
-        return view('admins.manage_transactions.add_photo_transaction_unregistered', compact('jamaats', 'donasis'));
+        $donasis = Donasi::where('status_keaktifan',0)->get();
+        return view('admins.manage_transactions.add_photo_transaction_unregistered', compact('jamaats', 'donasis', 'new_trans_code'));
     }
 
     public function validationPhotoTransaction_2(){
@@ -353,7 +452,6 @@ class TransactionManageController extends Controller
             'alamat' => Request()->alamat_pemesan,
             'no_handphone_1' => Request()->no_telepon_pemesan,
             'password'=>123,
-            'status_register' =>1,
         ];
 
         if (Request()->nama_mendiang == null) { return redirect()->route('tambah_transaksi_foto_2')->with('error','Data Foto tidak ada!'); }
@@ -370,6 +468,11 @@ class TransactionManageController extends Controller
 
         $this->TransaksiFotoUnreg->addDataTransactionPhotoUnreg($data);
         $this->UserJamaat->addDataJamaat($dataJamaat);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah transaksi foto umat tak terdaftar"." ".$data['kode_transaksi'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_transaksi_foto_2')->with('success','Transaksi berhasil ditambahkan!');
     }
 

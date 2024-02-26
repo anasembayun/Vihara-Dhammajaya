@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/kelola-admin/detail-admin/{username}', [AdminManageController::class, 'viewDetailDataAdmin'])->name('detail_data_admin');
     Route::post('/kelola-admin/detail-admin/update/{username}', [AdminManageController::class, 'updateAdmin']);
     Route::post('/kelola-admin/daftar-admin/delete/{username}', [AdminManageController::class, 'deleteAdmin']);
+    Route::get('/kelola-admin/history-admin/{id}', [AdminManageController::class, 'viewHistoryDataAdmin']);
 
     Route::get('/kelola-admin/hak-akses', [AccessManageController::class, 'viewAccessModAdmin']);
     Route::put('/kelola-admin/hak-akses/ubah', [AccessManageController::class, 'changeAccessAdmin']);
@@ -207,22 +208,23 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     // ------------------------- Kelola Laporan -------------------------
     Route::get('/kelola-laporan/laporan-transaksi', [KelolaLaporanManageController::class, 'viewLaporanTransaksi']);
-    Route::get('/kelola-laporan/laporan-transaksi-filter/{date_awal}/{date_akhir}', [KelolaLaporanManageController::class, 'FilterLaporanTransaksi']);
+    Route::get('/kelola-laporan/laporan-transaksi-filter/{date_awal}/{date_akhir}/{kategori}/{kegiatan}', [KelolaLaporanManageController::class, 'FilterLaporanTransaksi']);
     Route::get('/kelola-laporan/laporan-transaksi-foto', [KelolaLaporanManageController::class, 'viewLaporanTransaksiFoto']);
     Route::get('/kelola-laporan/laporan-transaksi-foto-filter/{date_awal}/{date_akhir}', [KelolaLaporanManageController::class, 'FilterLaporanTransaksiFoto']);
     Route::get('/kelola-laporan/laporan-transaksi-total', [KelolaLaporanManageController::class, 'viewLaporanTransaksiTotal']);
     Route::get('/kelola-laporan/laporan-penjualan-paket', [KelolaLaporanManageController::class, 'viewLaporanPenjualanPaket']);
     Route::get('/kelola-laporan/tampil-data-transaksi', [KelolaLaporanManageController::class, 'showDataTransaksi'])->name('tampil_data_transaksi_laporan');
     Route::get('/kelola-laporan/report-transaksi', [KelolaLaporanManageController::class, 'generateReportTransaksi']);
+    Route::get('/kelola-laporan/laporan-transaksi/{date_awal}/{date_akhir}/{kategori}/{kegiatan}', [KelolaLaporanManageController::class, 'generateReportTransaksiPDF']);
     
     // ------------------------- Kas -------------------------
     Route::get('/kas/kas-masuk', [KasManageController::class, 'viewCashIn'])->name('tambah_kas_masuk');
     Route::post('/kas/kas-masuk/tambah-kas-masuk', [KasManageController::class, 'addCashIn']);
     Route::get('/kas/laporan-kas-masuk', [KasManageController::class, 'viewCashInReport'])->name('laporan_kas_masuk');
-    Route::get('/kas/laporan-kas-masuk-filter/{date_awal}/{date_akhir}', [KasManageController::class, 'filterCashInReport']);
+    Route::get('/kas/laporan-kas-masuk-filter/{date_awal}/{date_akhir}/{kategori}', [KasManageController::class, 'filterCashInReport']);
     Route::post('/kas/laporan-kas-masuk/delete/{id}', [KasManageController::class, 'deleteCashIn']);
     Route::get('/kas/struk-kas-masuk/{nomor_kas_masuk}', [KasManageController::class, 'generateCashInReceipt'])->name('cetak_struk_kas_masuk');
-    Route::get('kas/laporan-kas-masuk/report-kas-masuk/{date_awal}/{date_akhir}', [KasManageController::class, 'generateCashInReportPDF']);
+    Route::get('kas/laporan-kas-masuk/report-kas-masuk/{date_awal}/{date_akhir}/{keperluan}', [KasManageController::class, 'generateCashInReportPDF']);
     
     Route::get('/kas/kas-keluar', [KasManageController::class, 'viewCashOut'])->name('tambah_kas_keluar');
     Route::post('/kas/kas-keluar/tambah-kas-keluar', [KasManageController::class, 'addCashOut']);

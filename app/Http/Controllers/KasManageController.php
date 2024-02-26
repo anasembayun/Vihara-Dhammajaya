@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\KasKeluar;
 use App\Models\KasMasuk;
+use App\Models\UserHistory;
 
 use Carbon\Carbon;
 
@@ -26,7 +27,28 @@ class KasManageController extends Controller
     // KAS MASUK
     public function viewCashIn()
     {
-        return view('admins.cash.cash_in');
+        $last_cash_code = KasMasuk::orderBy('id', 'desc')->first()->nomor_kas_masuk ?? 0;
+        $last_digit = substr($last_cash_code, -10);
+
+        if (ctype_digit($last_digit)) {
+            $check_date = substr($last_cash_code , 2, 6);
+            $last_increament = substr($last_cash_code, -4);
+            
+            if($check_date === date('ymd')) {
+                $new_cash_code = 'KM' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            else 
+            {
+                $last_increament = 0;
+                $new_cash_code = 'KM' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            
+        } else {
+            $last_increament = 0;
+            $new_cash_code = 'KM' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+        }
+
+        return view('admins.cash.cash_in', compact('new_cash_code'));
     }
 
     public function addCashIn()
@@ -48,12 +70,14 @@ class KasManageController extends Controller
             'tanggal' => Request()->tanggal,
             'nominal_pemasukan' => Request()->nominal_pemasukan
         ];
-
         $this->KasMasuk->addDataCashIn($data);
-
         $data2 = [
             'data_kas_masuk' => KasMasuk::where('nomor_kas_masuk', Request()->nomor_kas_masuk)->first(),
         ];
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah kas masuk"." ".$data['nomor_kas_masuk'];
+        UserHistory::create($newActivity);
 
         return view('templates.surat_kas_masuk', $data2);
 
@@ -64,7 +88,12 @@ class KasManageController extends Controller
 
     public function deleteCashIn($id)
     {
+        $no_kas = KasMasuk::where('id',$id)->first()->nomor_kas_masuk;
         $this->KasMasuk->deleteDataCashIn($id);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus kas masuk"." ".$no_kas;
+        UserHistory::create($newActivity);
         return redirect()->route('laporan_kas_masuk');
     }
 
@@ -100,19 +129,35 @@ class KasManageController extends Controller
         return view('admins.cash.cash_in_report', $data);
     }
 
-    public function filterCashInReport($date_awal, $date_akhir) 
+    public function filterCashInReport($date_awal, $date_akhir, $kategori) 
     {
-        $data_kas_masuk = KasMasuk::select('*')
+        if ($kategori != "Kategori Keperluan" && $kategori != "Semua Dana"){
+            $data_kas_masuk = KasMasuk::where('keterangan_keperluan',$kategori)
                                 ->whereDate('tanggal', '>=', $date_awal)
                                 ->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('id_admin',Auth::guard('admin')->user()->id)
                                 ->orderBy('tanggal', 'desc')
                                 ->get();
+        }
+        else{
+            $data_kas_masuk = KasMasuk::select('*')
+                                ->whereDate('tanggal', '>=', $date_awal)
+                                ->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('id_admin',Auth::guard('admin')->user()->id)
+                                ->orderBy('tanggal', 'desc')
+                                ->get();
+        }
 
-        $total_yayasan = KasMasuk::where('keterangan_keperluan', '=', 'Dana dari Yayasan')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
-        $total_umum = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Umum')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
-        $total_remaja = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Remaja')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
-        $total_anak = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Anak-Anak')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
-        $total_muda_mudi = KasMasuk::where('keterangan_keperluan', '=', 'Dana Paramita Muda Mudi')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_yayasan = KasMasuk::select('*')->whereDate('tanggal', '>=', $date_awal)->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('keterangan_keperluan', '=', 'Dana dari Yayasan')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_umum = KasMasuk::select('*')->whereDate('tanggal', '>=', $date_awal)->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('keterangan_keperluan', '=', 'Dana Paramita Umum')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_remaja = KasMasuk::select('*')->whereDate('tanggal', '>=', $date_awal)->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('keterangan_keperluan', '=', 'Dana Paramita Remaja')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_anak = KasMasuk::select('*')->whereDate('tanggal', '>=', $date_awal)->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('keterangan_keperluan', '=', 'Dana Paramita Anak-Anak')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
+        $total_muda_mudi = KasMasuk::select('*')->whereDate('tanggal', '>=', $date_awal)->whereDate('tanggal', '<=', $date_akhir)
+                                ->where('keterangan_keperluan', '=', 'Dana Paramita Muda Mudi')->where('id_admin',Auth::guard('admin')->user()->id)->sum('nominal_pemasukan');
 
         $data = [
             'data_kas_masuk' => $data_kas_masuk,
@@ -129,7 +174,7 @@ class KasManageController extends Controller
         return view('admins.cash.cash_in_report', $data);
     }
 
-    public function generateCashInReportPDF($date_awal = 0, $date_akhir = 0)
+    public function generateCashInReportPDF($date_awal = 0, $date_akhir = 0, $keperluan)
     {
         $today = Carbon::now()->format('Y-m');
         if ($date_awal == 0 || $date_akhir == 0) {
@@ -137,13 +182,25 @@ class KasManageController extends Controller
             $date_akhir = date($today . '-31');
         }
 
+        if ($keperluan != "Semua Dana"){
+            $data_kas_masuk = KasMasuk::select('*')
+            ->where('keterangan_keperluan', $keperluan)
+            ->whereDate('tanggal', '>=', $date_awal)
+            ->whereDate('tanggal', '<=', $date_akhir)
+            ->get();
+        }
+        else{
+            $data_kas_masuk = KasMasuk::select('*')
+            ->whereDate('tanggal', '>=', $date_awal)
+            ->whereDate('tanggal', '<=', $date_akhir)
+            ->get();
+        }
+
         $data = [
-            'data_kas_masuk' => KasMasuk::select('*')
-                                    ->whereDate('tanggal', '>=', $date_awal)
-                                    ->whereDate('tanggal', '<=', $date_akhir)
-                                    ->get(),
+            'data_kas_masuk' => $data_kas_masuk,
             'date_awal' => Carbon::createFromFormat('Y-m-d', $date_awal)->translatedFormat('d F Y'),
             'date_akhir' => Carbon::createFromFormat('Y-m-d', $date_akhir)->translatedFormat('d F Y'),
+            'keperluan' => $keperluan,
         ];
 
         $pdf = app('dompdf.wrapper');
@@ -158,7 +215,28 @@ class KasManageController extends Controller
     // KAS KELUAR
     public function viewCashOut()
     {
-        return view('admins.cash.cash_out');
+        $last_cash_code =  KasKeluar::orderBy('id', 'desc')->first()->nomor_kas_keluar ?? 0;
+        $last_digit = substr($last_cash_code, -10);
+
+        if (ctype_digit($last_digit)) {
+            $check_date = substr($last_cash_code , 2, 6);
+            $last_increament = substr($last_cash_code, -4);
+            
+            if($check_date === date('ymd')) {
+                $new_cash_code = 'KK' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            else 
+            {
+                $last_increament = 0;
+                $new_cash_code = 'KK' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+            }
+            
+        } else {
+            $last_increament = 0;
+            $new_cash_code = 'KK' . date('ymd') . str_pad($last_increament + 1, 4, 0, STR_PAD_LEFT);
+        }
+
+        return view('admins.cash.cash_out', compact('new_cash_code'));
     }
 
     public function addCashOut()
@@ -191,6 +269,10 @@ class KasManageController extends Controller
             'data_kas_keluar' => KasKeluar::where('nomor_kas_keluar', Request()->nomor_kas_keluar)->first(),
         ];
 
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah kas keluar"." ".$data['nomor_kas_keluar'];
+        UserHistory::create($newActivity);
+
         return view('templates.surat_kas_keluar', $data2);
 
         // return redirect()->route('tambah_kas_keluar')->with('success','Data berhasil ditambahkan!');
@@ -198,7 +280,13 @@ class KasManageController extends Controller
 
     public function deleteCashOut($id)
     {
+        $no_kas = KasKeluar::where('id',$id)->first()->nomor_kas_keluar;
         $this->KasKeluar->deleteDataCashOut($id);
+        
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus kas keluar"." ".$no_kas;
+        UserHistory::create($newActivity);
+
         return redirect()->route('laporan_kas_keluar');
     }
 

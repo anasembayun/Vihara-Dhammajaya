@@ -46,7 +46,6 @@
                 <div class="card-body">
                     <div class="container justify-content-center">
                         <div class="row mb-3 text-center">
-
                             <div class="col-md-8">
                                 <div class="d-flex" style="width: 100%;">
                                     {{-- Dropdown --}}
@@ -54,21 +53,19 @@
                                         <button
                                             class="dt-button buttons-copy buttons-html5 btn btn-secondary btn-sm dropdown-toggle"
                                             type="button" id="KategoriButton" data-bs-toggle="dropdown" aria-expanded="false"
-                                            style="width: 200px;">
-                                            Kategori Keperluan
-                                        </button>
+                                            style="width: 200px;">Kategori Keperluan</button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             <li><a id="yayasanID" class="dropdown-item" href="#"
                                                     onclick="dropDownYayasan()">Dana dari Yayasan</a></li>
-                                            <li><a id="paketID" class="dropdown-item" href="#"
+                                            <li><a id="umumID" class="dropdown-item" href="#"
                                                     onclick="dropDownUmum()">Dana Paramita Umum</a></li>
-                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                            <li><a id="remajaID" class="dropdown-item" href="#"
                                                     onclick="dropDownRemaja()">Dana Paramita Remaja</a></li>
-                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                            <li><a id="anakID" class="dropdown-item" href="#"
                                                     onclick="dropDownAnak()">Dana Paramita Anak-Anak</a></li>
-                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                            <li><a id="mudaMudiID" class="dropdown-item" href="#"
                                                     onclick="dropDownMudaMudi()">Dana Paramita Muda Mudi</a></li>
-                                            <li><a id="danaID" class="dropdown-item" href="#"
+                                            <li><a id="semuaDanaID" class="dropdown-item" href="#"
                                                     onclick="dropDownTotal()">Semua Dana</a></li>
                                         </ul>
                                     </div>
@@ -326,15 +323,32 @@
         $(document).on('click', '#exportpdf', function(e) {
             var date_awal = document.querySelector('.date-awal').value;
             var date_akhir = document.querySelector('.date-akhir').value;
+            var dropdown = $("#KategoriButton").text();
+            var url = window.location.pathname;
 
             if (date_awal == "" || date_akhir == "") {
                 date_awal = 0;
                 date_akhir = 0;
             }
 
-            var windowOpen = window.open("{{ url('kas/laporan-kas-masuk/report-kas-masuk') }}/" + date_awal + "/" +
-                date_akhir);
-            windowOpen.print();
+            if (dropdown=="Kategori Keperluan"){
+                dropdown = "Semua Dana"
+            }
+
+            if( url == "/kas/laporan-kas-masuk"){
+                var windowOpen = window.open("{{ url('kas/laporan-kas-masuk/report-kas-masuk') }}/" + date_awal + "/" +
+                date_akhir + "/" + dropdown);
+                windowOpen.print();
+            }
+            else{
+                var tgl_awl = url.split('/')[3];
+                var tgl_akh = url.split('/')[4];
+                var ktgr = url.split('/')[5];
+
+                var windowOpen = window.open("{{ url('kas/laporan-kas-masuk/report-kas-masuk') }}/" + tgl_awl + "/" +
+                tgl_akh + "/" + ktgr);
+                windowOpen.print();
+            }
         });
 
         function openPrintPage(nomor_kas_masuk) {
@@ -343,10 +357,11 @@
         };
 
         function filterDataKasMasuk() {
+            var kategori = $("#KategoriButton").text();
             if (document.querySelector('.date-awal').value != "" && document.querySelector('.date-akhir').value != "") {
                 open("{{ url('kas/laporan-kas-masuk-filter') }}/" + document.querySelector('.date-awal').value + "/" +
                     document
-                    .querySelector('.date-akhir').value, "_self");
+                    .querySelector('.date-akhir').value + "/" + kategori, "_self");
             }
         };
 

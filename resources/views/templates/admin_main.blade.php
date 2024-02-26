@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Vihara Dhammajaya</title>
+    <title>Muhammadiyah Jember</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -65,7 +65,7 @@
 
     <!-- favico -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/app_admin/dashboard/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/app_admin/dashboard/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/app_admin/dashboard/favicon-32x32.jpg') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/app_admin/dashboard/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('images/app_admin/dashboard/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('images/app_admin/dashboard/safari-pinned-tab.svg') }}" color="#5bbad5">
@@ -145,7 +145,7 @@
     <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3" id="mySidebar">
         <div class="w3-container w3-display-container w3-padding-16 d-flex justify-content-center">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-            <img src="{{ asset('images/app_admin/dashboard/atas-bawah.png') }}" alt="Logo" style="width:210px;margin-top: 18px;">
+            <img src="{{ asset('images/app_admin/dashboard/muhammadiyah-logo.png') }}" alt="Logo" style="width:250px;margin-top: 18px;">
         </div>
         <div class="parent">
             <a href="{{ url('profile/'.Auth::guard('admin')->user()->username) }}" style="text-decoration: none;">
@@ -200,9 +200,9 @@
             <div class="accordion" id="accordionPanelsStayOpenExample">
                 @if (in_array('Kelola Admin', $access_list))
                     <!-- KELOLA ADMIN -->
-                    <div class="accordion-item" style="background-color: #100700">
+                    <div class="accordion-item" style="background-color: #184500">
                         <h2 class="accordion-header" id="panelsStayOpen-headingKelolaAdmin">
-                            <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaAdmin" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaAdmin">
+                            <button style="background-color: #184500; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaAdmin" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaAdmin">
                                 Kelola Admin
                             </button>
                         </h2>
@@ -216,9 +216,9 @@
 
                 <!-- KELOLA UMAT -->
                 @if(!empty(array_intersect(["Tambah Umat", "Daftar Data Upa - Upi", "Tambah Data Pernikahan", "Daftar Data Umat", "Daftar Data Umat Tidak Terdaftar", "Tambah Data Upa - Upi", "Daftar Data Pernikahan" ], $access_list)))
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                        <button style="background-color: #184500; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
                             Kelola Umat
                         </button>
                     </h2>
@@ -226,14 +226,14 @@
                         @if (in_array("Tambah Umat", $access_list))
                         <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/tambah-jamaat') }}" class="w3-bar-item w3-button">Tambah Umat</a></div>
                         @endif
-                        @if (in_array("Daftar Data Upa - Upi", $access_list))
+                        @if (in_array("Daftar Data Umat", $access_list))
+                        <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/daftar-jamaat') }}" class="w3-bar-item w3-button">Daftar Data Umat</a></div>
+                        @endif
+                        {{-- @if (in_array("Daftar Data Upa - Upi", $access_list))
                         <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/tambah-data-baptisan') }}" class="w3-bar-item w3-button">Tambah Data Baptisan</a></div>
                         @endif
                         @if (in_array("Tambah Data Pernikahan", $access_list))
                         <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/tambah-data-pernikahan') }}" class="w3-bar-item w3-button">Tambah Data Pernikahan</a></div>
-                        @endif
-                        @if (in_array("Daftar Data Umat", $access_list))
-                        <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/daftar-jamaat') }}" class="w3-bar-item w3-button">Daftar Data Umat</a></div>
                         @endif
                         @if (in_array("Daftar Data Umat Tidak Terdaftar", $access_list))
                         <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/daftar-jamaat-tidak-terdaftar') }}" class="w3-bar-item w3-button">Daftar Data Umat Tidak Terdaftar</a></div>
@@ -243,16 +243,16 @@
                         @endif
                         @if (in_array("Daftar Data Pernikahan", $access_list))
                         <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('kelola-jamaat/daftar-pernikahan') }}" class="w3-bar-item w3-button">Daftar Data Pernikahan</a></div>
-                        @endif
+                        @endif--}}
                     </div>
                 </div>
                 @endif
-
+            {{--
                 <!-- KELOLA BERITA -->
                 @if(!empty(array_intersect(["Tambah Berita", "Daftar Berita" ], $access_list)))
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header" id="panelsStayOpen-headingKelolaBerita">
-                        <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaBerita" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaBerita">
+                        <button style="background-color: #184500; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaBerita" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaBerita">
                             Kelola Berita
                         </button>
                     </h2>
@@ -269,18 +269,18 @@
 
                 @if (in_array("Presensi Kegiatan", $access_list))
                     <!-- PRESENSI KEGIATAN -->
-                    <div class="accordion-item" style="background-color: #100700">
+                    <div class="accordion-item" style="background-color: #184500">
                         <h2 class="accordion-header">
-                            <a role="button" href="{{ url('kelola-kegiatan/tambah-jadwal-kegiatan') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Presensi Kegiatan</a>
+                            <a role="button" href="{{ url('kelola-kegiatan/tambah-jadwal-kegiatan') }}" class="accordion-button accordion-no-arrow" style="background-color: #184500; color: white; text-decoration: none;">Presensi Kegiatan</a>
                         </h2>
                     </div>
                 @endif
 
                 <!-- KELOLA INFORMASI KEGIATAN -->
                 @if(!empty(array_intersect(["Jadwalkan Kegiatan", "Daftar Kegiatan" ], $access_list)))
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header" id="panelsStayOpen-headingKelolaDonasi">
-                        <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaDonasi" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaDonasi">
+                        <button style="background-color: #184500; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaDonasi" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaDonasi">
                             Kelola Informasi Kegiatan
                         </button>
                     </h2>
@@ -297,59 +297,40 @@
 
                 <!-- KELOLA PAKET -->
                 @if(in_array("Kelola Paket", $access_list))
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header">
-                        <a role="button" href="{{ url('kelola-barang/daftar-barang') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Kelola Paket</a>
+                        <a role="button" href="{{ url('kelola-barang/daftar-barang') }}" class="accordion-button accordion-no-arrow" style="background-color: #184500; color: white; text-decoration: none;">Kelola Paket</a>
                     </h2>
                 </div>
                 @endif
 
                 <!-- KELOLA RENUNGAN / PESAN BAIK -->
                 @if(in_array("Kelola Pesan Baik", $access_list))
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header">
-                        <a role="button" href="{{ url('kelola-pesan-baik/tambah-pesan-baik') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Kelola Pesan Baik</a>
+                        <a role="button" href="{{ url('kelola-pesan-baik/tambah-pesan-baik') }}" class="accordion-button accordion-no-arrow" style="background-color: #184500; color: white; text-decoration: none;">Kelola Pesan Baik</a>
                     </h2>
                 </div>
                 @endif
+                --}}
 
-                <!-- DATA LELUHUR -->
-                <div class="accordion-item" style="background-color: #100700">
-                    {{-- <h2 class="accordion-header" id="panelsStayOpen-headingDataLeluhur">
-                        <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseDataLeluhur" aria-expanded="true" aria-controls="panelsStayOpen-collapseDataLeluhur">
-                            Data Leluhur
-                        </button>
-                    </h2> --}}
-                    @if(in_array("Kelola Leluhur", $access_list))
-                    <h2 class="accordion-header">
-                        <a role="button" href="{{ url('data-leluhur/pesan-pas-foto') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Kelola Leluhur</a>
-                    </h2>
-                    @endif
-                    @if(in_array("Daftar Data Leluhur", $access_list))
-                    <h2 class="accordion-header">
-                        <a role="button" href="{{ url('data-leluhur/daftar-leluhur') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Daftar Data Leluhur</a>
-                    </h2>
-                    @endif
-                    {{-- <div id="panelsStayOpen-collapseDataLeluhur" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingDataLeluhur">
-                        <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('data-leluhur/tambah-data') }}" class="w3-bar-item w3-button">Tambah Data</a></div>
-                        <div><a class="accordion-body w3-bar-item w3-button" href="{{ url('data-leluhur/pesan-pas-foto') }}" class="w3-bar-item w3-button">Pesan Pas Foto</a></div>
-                    </div> --}}
-                </div>
-
+                {{--
                 @if(in_array("Tagih Iuran", $access_list))
                 <!-- TAGIH IURAN -->
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header">
-                        <a role="button" href="{{ url('tagih-iuran') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Tagih Iuran</a>
+                        <a role="button" href="{{ url('tagih-iuran') }}" class="accordion-button accordion-no-arrow" style="background-color: #184500; color: white; text-decoration: none;">Tagih Iuran</a>
                     </h2>
                 </div>
                 @endif
+                --}}
 
+                {{--
                 <!-- KELOLA TRANSAKSI -->
                 @if(!empty(array_intersect(["Transaksi", "Transaksi Foto", "Riwayat Transaksi", "Riwayat Transaksi Foto"], $access_list)))
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header" id="panelsStayOpen-headingKelolaTransaksi">
-                        <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaTransaksi" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaTransaksi">
+                        <button style="background-color: #184500; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKelolaTransaksi" aria-expanded="true" aria-controls="panelsStayOpen-collapseKelolaTransaksi">
                             Kelola Transaksi
                         </button>
                     </h2>
@@ -369,23 +350,23 @@
                         {{-- <div><a class="accordion-body w3-bar-item w3-button" class="w3-bar-item w3-button">Riwayat Transaksi Foto</a></div> --}}
                     </div>
                 </div>
-                @endif
-
-            
+                
+                
+            {{--
                 <!-- KELOLA LAPORAN (ON PROGRESS) -->
                 @if(in_array("Kelola Laporan", $access_list))
-                <div class="accordion-item" style="background-color: #100700">  
+                <div class="accordion-item" style="background-color: #184500">  
                     <h2 class="accordion-header">
-                        <a role="button" href="{{ url('kelola-laporan/laporan-transaksi') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Kelola Laporan</a>
+                        <a role="button" href="{{ url('kelola-laporan/laporan-transaksi') }}" class="accordion-button accordion-no-arrow" style="background-color: #184500; color: white; text-decoration: none;">Kelola Laporan</a>
                     </h2>
                 </div>
                 @endif
 
                 @if (!empty(array_intersect(["Kas Masuk", "Kas Keluar", "Laporan Kas"], $access_list)))
                 <!-- KAS (ON PROGRESS) -->
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header" id="panelsStayOpen-headingKas">
-                        <button style="background-color: #100700; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKas" aria-expanded="true" aria-controls="panelsStayOpen-collapseKas">
+                        <button style="background-color: #184500; color: white;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseKas" aria-expanded="true" aria-controls="panelsStayOpen-collapseKas">
                             Kas
                         </button>
                     </h2>
@@ -405,12 +386,13 @@
 
                 @if (in_array("Laporan Keuangan", $access_list))
                 <!-- LAPORAN KEUANGAN (ON PROGRESS) -->
-                <div class="accordion-item" style="background-color: #100700">
+                <div class="accordion-item" style="background-color: #184500">
                     <h2 class="accordion-header">
-                        <a role="button" href="{{ url('laporan-keuangan') }}" class="accordion-button accordion-no-arrow" style="background-color: #100700; color: white; text-decoration: none;">Laporan Keuangan</a>
+                        <a role="button" href="{{ url('laporan-keuangan') }}" class="accordion-button accordion-no-arrow" style="background-color: #184500; color: white; text-decoration: none;">Laporan Keuangan</a>
                     </h2>
                 </div>
-                @endif
+                @endif 
+                
             </div>
 
             <!-- KELOLA ADMIN -->
@@ -564,10 +546,8 @@
                 <a href="laporanLabaRugi.html" class="w3-bar-item w3-button">Laporan Laba Rugi</a>
             </div> --}}
 
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="w3-bar-item w3-button" style="color:#E57616">Log Out</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
+            
+            <a href="{{ route('logout') }}" class="w3-bar-item w3-button" style="color:#E57616">Log Out</a>
         </div>
 
     </nav>
@@ -588,7 +568,7 @@
         <!-- Top menu on small screens -->
         <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
             <div class="w3-bar-item w3-padding-24 w3-wide">
-                <img src="{{ asset('images/app_admin/dashboard/atas-bawah.png') }}" alt="Logo">
+                <img src="{{ asset('images/app_admin/dashboard/muhammadiyah-logo.png') }}" width="150px" alt="Logo">
             </div>
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
                     class="fa fa-bars"></i></a>

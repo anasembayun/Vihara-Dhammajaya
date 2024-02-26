@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Access;
 use App\Models\Role;
+use App\Models\UserHistory;
 use Auth;
 
 class AdminManageController extends Controller
@@ -60,6 +61,11 @@ class AdminManageController extends Controller
         ];
 
         $this->User->addDataAdminOnly($data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Tambah akun"." ". $data['username'];
+        UserHistory::create($newActivity);
+
         return redirect()->route('tambah_admin')->with('success', $role->nama.' '.Request()->name.' berhasil ditambahkan!');
     }
 
@@ -93,6 +99,11 @@ class AdminManageController extends Controller
         ];
 
         $this->User->editDataAdminByUsername($username, $data);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Edit akun"." ". $username;
+        UserHistory::create($newActivity);
+
         return redirect()->route('detail_data_admin', $username)->with('success','Edit data Admin '.Request()->name.' berhasil!');
     }
 
@@ -100,6 +111,11 @@ class AdminManageController extends Controller
     {
         $this->User->deleteDataAdmin($username);
         // $this->Access->deleteAccess($username);
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Hapus akun"." ". $username;
+        UserHistory::create($newActivity);
+
         return redirect()->route('daftar_admin');
     }
 
@@ -107,6 +123,13 @@ class AdminManageController extends Controller
     {
         $users = User::all();
         return view('admins.list_adm', compact('users'));
+    }
+
+    public function viewHistoryDataAdmin($id)
+    {
+        $users = User::where('id', $id)->first()->name;
+        $histories = UserHistory::where('user_id', $id)->orderBy('created_at', 'DESC')->get();
+        return view('admins.akun.history_admin', compact('histories', 'users'));
     }
 
     // Profile Admin
@@ -184,6 +207,10 @@ class AdminManageController extends Controller
             $this->User->editDataAdmin(Request()->id_admin, $data);
         }
 
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Update profile"." ". $username;
+        UserHistory::create($newActivity);
+
         return redirect()->route('profile_admin', $username)->with('success', 'Update profil berhasil!');
     }
 
@@ -204,6 +231,10 @@ class AdminManageController extends Controller
         $admin->password = Hash::make(Request()->new_password);
         $admin->save();
         Request()->session()->regenerate();
+
+        $newActivity['user_id'] = Auth::guard('admin')->user()->id;
+        $newActivity['kegiatan'] = "Ubah password"." ". $username;
+        UserHistory::create($newActivity);
 
         return redirect()->route('ganti_password_admin', $admin->username)->with('success', 'Update password berhasil!');
     }
